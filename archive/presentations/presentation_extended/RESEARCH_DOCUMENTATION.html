@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RESEARCH_DOCUMENTATION.md</title>
+
+<!-- MathJax for LaTeX rendering -->
+
+<!-- Enhanced MathJax configuration for robust LaTeX rendering -->
+<script>
+window.MathJax = {
+	tex: {
+		inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [['$$', '$$'], ['\\[', '\\]']],
+		processEscapes: true,
+		processEnvironments: true,
+		tags: 'ams',
+	},
+	options: {
+		skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+		ignoreHtmlClass: 'tex2jax_ignore',
+		processHtmlClass: 'tex2jax_process',
+	}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+	<script>
+		mermaid.initialize({
+			startOnLoad: true,
+			theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+					? 'dark'
+					: 'default'
+		});
+		// Ensure MathJax typesets after page load
+		window.addEventListener('DOMContentLoaded', function() {
+			if (window.MathJax && window.MathJax.typesetPromise) {
+				MathJax.typesetPromise();
+			}
+		});
+	</script>
+<h1 id="lie-poisson-geometric-criteria-for-classical-optical-mbqc-emulation">Lie-Poisson Geometric Criteria for Classical Optical MBQC Emulation</h1>
+<h2 id="complete-mathematical-research-documentation">Complete Mathematical Research Documentation</h2>
+<p><strong>Author:</strong> Hubert Kołcz, M.Sc. Eng.<br>
+<strong>Affiliation:</strong> IEEE Graduate Student Member, Warsaw University of Technology<br>
+<strong>Venue:</strong> 46th Winter School Geometry and Physics, Srní, Czech Republic, January 17-24, 2026</p>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#1-research-overview-and-central-question">Research Overview and Central Question</a></li>
+<li><a href="#2-mathematical-foundations">Mathematical Foundations</a>
+<ul>
+<li>2.1 <a href="#21-quantum-state-space-geometry">Quantum State Space Geometry</a></li>
+<li>2.2 <a href="#22-lie-algebras-and-their-representations">Lie Algebras and Their Representations</a></li>
+<li>2.3 <a href="#23-symplectic-geometry-and-poisson-structures">Symplectic Geometry and Poisson Structures</a></li>
+</ul>
+</li>
+<li><a href="#3-the-lie-poisson-framework">The Lie-Poisson Framework</a>
+<ul>
+<li>3.1 <a href="#31-coadjoint-orbits-and-the-kks-theorem">Coadjoint Orbits and the KKS Theorem</a></li>
+<li>3.2 <a href="#32-quantum-momentum-maps">Quantum Momentum Maps</a></li>
+<li>3.3 <a href="#33-the-lie-poisson-bracket">The Lie-Poisson Bracket</a></li>
+</ul>
+</li>
+<li><a href="#4-measurement-based-quantum-computation-mbqc">Measurement-Based Quantum Computation (MBQC)</a>
+<ul>
+<li>4.1 <a href="#41-cluster-states">Cluster States</a></li>
+<li>4.2 <a href="#42-mbqc-protocol-structure">MBQC Protocol Structure</a></li>
+<li>4.3 <a href="#43-gflow-and-determinism">gflow and Determinism</a></li>
+</ul>
+</li>
+<li><a href="#5-the-dynamical-lie-algebra-dla">The Dynamical Lie Algebra (DLA)</a>
+<ul>
+<li>5.1 <a href="#51-definition-and-computation">Definition and Computation</a></li>
+<li>5.2 <a href="#52-dla-dimension-as-complexity-measure">DLA Dimension as Complexity Measure</a></li>
+<li>5.3 <a href="#53-numerical-verification">Numerical Verification</a></li>
+</ul>
+</li>
+<li><a href="#6-the-central-criterion-proposition-0">The Central Criterion: Proposition 0</a></li>
+<li><a href="#7-classical-simulation-lemmas">Classical Simulation Lemmas</a>
+<ul>
+<li>7.1 <a href="#71-lemma-a-gottesman-knill-theorem">Lemma A: Gottesman-Knill Theorem</a></li>
+<li>7.2 <a href="#72-lemma-b-bounded-treewidth">Lemma B: Bounded Treewidth</a></li>
+<li>7.3 <a href="#73-lemma-c-g-sim-algorithm">Lemma C: g-sim Algorithm</a></li>
+</ul>
+</li>
+<li><a href="#8-contextuality-as-the-quantum-resource">Contextuality as the Quantum Resource</a>
+<ul>
+<li>8.1 <a href="#81-noncontextual-hidden-variable-models">Noncontextual Hidden Variable Models</a></li>
+<li>8.2 <a href="#82-the-contextual-fraction">The Contextual Fraction</a></li>
+<li>8.3 <a href="#83-chsh-inequality-and-bell-states">CHSH Inequality and Bell States</a></li>
+</ul>
+</li>
+<li><a href="#9-main-theorems">Main Theorems</a>
+<ul>
+<li>9.1 <a href="#91-theorem-1-sufficient-conditions">Theorem 1: Sufficient Conditions</a></li>
+<li>9.2 <a href="#92-theorem-2-contextuality-barrier">Theorem 2: Contextuality Barrier</a></li>
+<li>9.3 <a href="#93-theorem-3-structural-partition">Theorem 3: Structural Partition</a></li>
+<li>9.4 <a href="#94-theorem-4-universality-criterion">Theorem 4: Universality Criterion</a></li>
+<li>9.5 <a href="#95-theorem-5-complete-classification">Theorem 5: Complete Classification</a></li>
+</ul>
+</li>
+<li><a href="#10-classical-optical-emulation-strategies">Classical Optical Emulation Strategies</a></li>
+<li><a href="#11-connection-to-quantum-error-correction">Connection to Quantum Error Correction</a></li>
+<li><a href="#12-numerical-validation-summary">Numerical Validation Summary</a></li>
+<li><a href="#13-conceptual-flow-and-interconnections">Conceptual Flow and Interconnections</a></li>
+</ol>
+<hr>
+<h2 id="1-research-overview-and-central-question">1. Research Overview and Central Question</h2>
+<h3 id="the-fundamental-problem">The Fundamental Problem</h3>
+<p>Quantum computing promises exponential speedups for certain problems, but understanding <em>precisely when and why</em> quantum systems outperform classical ones remains a deep question. This research addresses:</p>
+<blockquote>
+<p><strong>Central Research Question:</strong> Under what precise mathematical conditions—characterized via Lie-Poisson geometry—can photonic MBQC algorithms be reproduced by purely classical optical means (Mueller matrices, linear interferometry)?</p>
+</blockquote>
+<h3 id="key-insight">Key Insight</h3>
+<p>The boundary between quantum advantage and classical simulability can be characterized by <strong>contextuality barriers</strong> arising from <strong>non-commutative Lie algebra structures</strong>. When the dynamical Lie algebra has polynomial dimension, classical simulation is possible; when it grows exponentially, quantum resources become necessary.</p>
+<h3 id="research-goals">Research Goals</h3>
+<ol>
+<li>Formalize MBQC protocols using symplectic/Poisson geometric structures</li>
+<li>Establish necessary and sufficient conditions for classical emulation</li>
+<li>Connect quantum computation to quantum error correction via momentum maps</li>
+<li>Provide a complete classification of MBQC primitives into classical vs quantum-essential</li>
+</ol>
+<hr>
+<h2 id="2-mathematical-foundations">2. Mathematical Foundations</h2>
+<h3 id="21-quantum-state-space-geometry">2.1 Quantum State Space Geometry</h3>
+<h4 id="the-poincar%C3%A9-sphere-definition-1">The Poincaré Sphere (Definition 1)</h4>
+<p>A single photonic qubit is represented geometrically on the <strong>Poincaré sphere</strong> $S^2 \subset \mathbb{R}^3$. The density matrix of a qubit admits the Bloch representation:</p>
+<p>$$\rho = \frac{1}{2}\left(I + \sum_{i=1}^{3} s_i \sigma_i\right)$$</p>
+<p>where:</p>
+<ul>
+<li>$\vec{s} = (s_1, s_2, s_3) \in S^2$ is the <strong>Stokes vector</strong> (or Bloch vector)</li>
+<li>$\sigma_i$ are the <strong>Pauli matrices</strong>:</li>
+</ul>
+<p>$$\sigma_x = X = \begin{pmatrix} 0 &amp; 1 \ 1 &amp; 0 \end{pmatrix}, \quad \sigma_y = Y = \begin{pmatrix} 0 &amp; -i \ i &amp; 0 \end{pmatrix}, \quad \sigma_z = Z = \begin{pmatrix} 1 &amp; 0 \ 0 &amp; -1 \end{pmatrix}$$</p>
+<p><strong>Geometric Interpretation:</strong></p>
+<ul>
+<li>Pure states lie on the surface of the sphere ($|\vec{s}| = 1$)</li>
+<li>Mixed states lie inside the sphere ($|\vec{s}| &lt; 1$)</li>
+<li>The north pole $(0,0,1)$ corresponds to $|0\rangle$</li>
+<li>The south pole $(0,0,-1)$ corresponds to $|1\rangle$</li>
+<li>The equator contains superposition states like $|+\rangle, |-\rangle, |+i\rangle, |-i\rangle$</li>
+</ul>
+<p><strong>Physical Significance:</strong> For photons, the Stokes vector encodes polarization state—horizontal, vertical, diagonal, and circular polarizations map to specific points on the sphere.</p>
+<h3 id="22-lie-algebras-and-their-representations">2.2 Lie Algebras and Their Representations</h3>
+<h4 id="the-pauli-algebra-mathfraksu2">The Pauli Algebra $\mathfrak{su}(2)$</h4>
+<p>The Pauli matrices satisfy the fundamental commutation relations:</p>
+<p>$$[X, Y] = 2iZ, \quad [Y, Z] = 2iX, \quad [Z, X] = 2iY$$</p>
+<p>Or more compactly: $[\sigma_i, \sigma_j] = 2i\epsilon_{ijk}\sigma_k$ where $\epsilon_{ijk}$ is the Levi-Civita symbol.</p>
+<p>These relations define the <strong>Lie algebra $\mathfrak{su}(2)$</strong>, the algebra of traceless skew-Hermitian $2 \times 2$ matrices. Its dimension is <strong>3</strong>.</p>
+<p><strong>Numerical Verification:</strong> Our code confirms $[X,Y] = 2iZ$ by direct matrix computation.</p>
+<h4 id="extension-to-multi-qubit-systems">Extension to Multi-Qubit Systems</h4>
+<p>For $n$ qubits, we have several relevant Lie algebras:</p>
+<ol>
+<li>
+<p><strong>Local Pauli algebra</strong> $\mathfrak{su}(2)^{\oplus n}$: Generated by single-qubit Paulis acting on each qubit independently.</p>
+<ul>
+<li>Dimension: $3n$ (linear in $n$)</li>
+<li>Generators: ${\sigma_k^{(v)}}$ for $v \in {1,...,n}$, $k \in {x,y,z}$</li>
+</ul>
+</li>
+<li>
+<p><strong>Full $n$-qubit algebra</strong> $\mathfrak{su}(2^n)$: The algebra of all traceless Hermitian operators on $n$ qubits.</p>
+<ul>
+<li>Dimension: $4^n - 1$ (exponential in $n$)</li>
+<li>Contains all possible $n$-qubit observables</li>
+</ul>
+</li>
+</ol>
+<p><strong>Key Observation:</strong> The transition from $O(n)$ to $O(4^n)$ dimensional algebras marks the classical-quantum boundary.</p>
+<h3 id="23-symplectic-geometry-and-poisson-structures">2.3 Symplectic Geometry and Poisson Structures</h3>
+<h4 id="symplectic-manifolds">Symplectic Manifolds</h4>
+<p>A <strong>symplectic manifold</strong> $(M, \omega)$ is a smooth manifold $M$ equipped with a closed, non-degenerate 2-form $\omega$. The symplectic form defines:</p>
+<ol>
+<li><strong>Hamiltonian vector fields:</strong> For function $H: M \to \mathbb{R}$, the vector field $X_H$ satisfying $\omega(X_H, \cdot) = dH$</li>
+<li><strong>Poisson bracket:</strong> ${f, g} = \omega(X_f, X_g)$</li>
+</ol>
+<h4 id="poisson-manifolds">Poisson Manifolds</h4>
+<p>A <strong>Poisson manifold</strong> $(M, {\cdot, \cdot})$ has a bracket satisfying:</p>
+<ul>
+<li>Antisymmetry: ${f, g} = -{g, f}$</li>
+<li>Jacobi identity: ${f, {g, h}} + {g, {h, f}} + {h, {f, g}} = 0$</li>
+<li>Leibniz rule: ${fg, h} = f{g, h} + g{f, h}$</li>
+</ul>
+<p>Every symplectic manifold is Poisson, but Poisson manifolds can have degenerate structures (they foliate into symplectic leaves).</p>
+<hr>
+<h2 id="3-the-lie-poisson-framework">3. The Lie-Poisson Framework</h2>
+<h3 id="31-coadjoint-orbits-and-the-kks-theorem">3.1 Coadjoint Orbits and the KKS Theorem</h3>
+<h4 id="coadjoint-action">Coadjoint Action</h4>
+<p>For a Lie group $G$ with Lie algebra $\mathfrak{g}$, the <strong>coadjoint action</strong> of $G$ on $\mathfrak{g}^*$ (the dual space) is:</p>
+<p>$$\text{Ad}^*<em>g(\mu) = \mu \circ \text{Ad}</em>{g^{-1}}$$</p>
+<p>The <strong>coadjoint orbit</strong> through $\mu \in \mathfrak{g}^*$ is:</p>
+<p>$$\mathcal{O}_\mu = \{\text{Ad}^*_g \mu : g \in G\} \subset \mathfrak{g}^*$$</p>
+<h4 id="kirillov-kostant-souriau-kks-theorem">Kirillov-Kostant-Souriau (KKS) Theorem</h4>
+<p><strong>Theorem (KKS):</strong> Each coadjoint orbit $\mathcal{O}_\mu$ carries a canonical symplectic structure:</p>
+<p>$$\omega_\mu(\xi_{\mathfrak{g}^*}, \eta_{\mathfrak{g}^*}) = \langle \mu, [\xi, \eta] \rangle$$</p>
+<p>where $\xi_{\mathfrak{g}^*}$ denotes the fundamental vector field generated by $\xi \in \mathfrak{g}$.</p>
+<p><strong>Significance:</strong> This theorem is fundamental because it shows that coadjoint orbits are naturally symplectic manifolds—they have the geometric structure needed for Hamiltonian mechanics.</p>
+<h4 id="application-the-poincar%C3%A9-sphere">Application: The Poincaré Sphere</h4>
+<p>For $G = SU(2)$, the coadjoint orbits are spheres of different radii in $\mathfrak{su}(2)^* \cong \mathbb{R}^3$:</p>
+<p>$$S^2_r = {(s_1, s_2, s_3) : s_1^2 + s_2^2 + s_3^2 = r^2}$$</p>
+<p>The Poincaré sphere $S^2 \cong SU(2)/U(1)$ is a coadjoint orbit of $SU(2)$, hence a <strong>symplectic leaf</strong> of the Lie-Poisson structure.</p>
+<p><strong>Symplectic form on $S^2$:</strong>
+$$\omega = \frac{1}{2r}\sin\theta , d\theta \wedge d\phi$$</p>
+<p>This is proportional to the area form on the sphere.</p>
+<p><strong>Casimir invariant:</strong> $C(\vec{S}) = S_1^2 + S_2^2 + S_3^2$ labels orbits and corresponds to the purity of the quantum state.</p>
+<h3 id="32-quantum-momentum-maps">3.2 Quantum Momentum Maps</h3>
+<h4 id="definition-5-quantum-momentum-map">Definition 5: Quantum Momentum Map</h4>
+<p>For a Lie algebra $\mathfrak{g}$ of observables, the <strong>quantum momentum map</strong> $\mu: \mathcal{S}(\mathcal{H}) \to \mathfrak{g}^*$ is defined by:</p>
+<p>$$\mu(\rho)_\alpha = \text{Tr}(\rho S_\alpha)$$</p>
+<p>where $S_\alpha \in \mathfrak{g}$ are the generators and $\mathcal{S}(\mathcal{H})$ is the space of density matrices.</p>
+<p><strong>Interpretation:</strong> The momentum map extracts expectation values of observables from quantum states. It maps the infinite-dimensional quantum state space to the finite-dimensional dual of the observable Lie algebra.</p>
+<p><strong>Example:</strong> For a single qubit and $\mathfrak{g} = \mathfrak{su}(2)$:
+$$\mu(\rho) = (\langle X \rangle, \langle Y \rangle, \langle Z \rangle) = \vec{s}$$</p>
+<p>The momentum map simply extracts the Bloch vector.</p>
+<h3 id="33-the-lie-poisson-bracket">3.3 The Lie-Poisson Bracket</h3>
+<h4 id="definition-6-lie-poisson-bracket">Definition 6: Lie-Poisson Bracket</h4>
+<p>On the dual space $\mathfrak{g}^*$, the canonical Lie-Poisson bracket is:</p>
+<p>$${f, g}(\mu) = \langle \mu, [df(\mu), dg(\mu)] \rangle$$</p>
+<p>For coordinate functions $\mu_\alpha$ corresponding to basis elements:</p>
+<p>$${\mu_\alpha, \mu_\beta} = \mu_{[\alpha, \beta]} = c_{\alpha\beta}^\gamma \mu_\gamma$$</p>
+<p>where $c_{\alpha\beta}^\gamma$ are the structure constants of $\mathfrak{g}$.</p>
+<p><strong>Key Observation:</strong> The Lie-Poisson bracket vanishes if and only if the observables commute:</p>
+<p>$${f, g} = 0 \Leftrightarrow [df, dg] = 0$$</p>
+<p>This provides the <strong>geometric characterization of classical simulability</strong>: when all relevant observables commute, the dynamics is integrable and classically simulable.</p>
+<hr>
+<h2 id="4-measurement-based-quantum-computation-mbqc">4. Measurement-Based Quantum Computation (MBQC)</h2>
+<h3 id="41-cluster-states">4.1 Cluster States</h3>
+<h4 id="definition-2-cluster-state">Definition 2: Cluster State</h4>
+<p>Given a graph $G = (V, E)$, the <strong>cluster state</strong> is:</p>
+<p>$$|\Psi_G\rangle = \prod_{(i,j) \in E} \text{CZ}<em>{ij} \bigotimes</em>{v \in V} |+\rangle_v$$</p>
+<p>where:</p>
+<ul>
+<li>$|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$ is the equal superposition state</li>
+<li>$\text{CZ}_{ij} = |0\rangle\langle 0| \otimes I + |1\rangle\langle 1| \otimes Z$ is the controlled-Z gate</li>
+</ul>
+<p><strong>Construction Process:</strong></p>
+<ol>
+<li>Prepare each qubit in $|+\rangle$ state</li>
+<li>Apply CZ gates between all pairs of qubits connected by edges in $G$</li>
+</ol>
+<p><strong>Properties of Cluster States:</strong></p>
+<ul>
+<li>They are <strong>stabilizer states</strong> (eigenstates of an abelian stabilizer group)</li>
+<li>For each vertex $v$, the stabilizer generator is: $K_v = X_v \prod_{u \in N(v)} Z_u$</li>
+<li>They are <strong>maximally entangled</strong> in a specific sense</li>
+</ul>
+<p><strong>Numerical Verification:</strong> Our code creates 2-qubit cluster states and verifies fidelity = 1.0 with the expected state.</p>
+<h3 id="42-mbqc-protocol-structure">4.2 MBQC Protocol Structure</h3>
+<h4 id="definition-3-mbqc-protocol">Definition 3: MBQC Protocol</h4>
+<p>An MBQC protocol is a 5-tuple $\Pi = (G, \rho_G, \mathcal{M}, \mathcal{F}, \mathcal{O})$:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+<th>Mathematical Form</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$G = (V, E)$</td>
+<td>Computation graph with gflow</td>
+<td>Graph structure</td>
+</tr>
+<tr>
+<td>$\rho_G$</td>
+<td>Cluster state on graph $G$</td>
+<td>$|\Psi_G\rangle\langle\Psi_G|$</td>
+</tr>
+<tr>
+<td>$\mathcal{M}$</td>
+<td>Measurement operators</td>
+<td>${M_v(\theta_v)}_{v \in V}$</td>
+</tr>
+<tr>
+<td>$\mathcal{F}$</td>
+<td>Feed-forward function</td>
+<td>${0,1}^{</td>
+</tr>
+<tr>
+<td>$\mathcal{O}$</td>
+<td>Output function</td>
+<td>${0,1}^{</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Computation Process:</strong></p>
+<ol>
+<li>Prepare the cluster state $|\Psi_G\rangle$</li>
+<li>Measure qubits sequentially with angles adapted based on previous outcomes</li>
+<li>Apply classical post-processing to extract the output</li>
+</ol>
+<p><strong>Key Insight:</strong> The graph structure encodes the computation, and measurements &quot;consume&quot; the entanglement to perform gates.</p>
+<h3 id="43-gflow-and-determinism">4.3 gflow and Determinism</h3>
+<h4 id="generalized-flow-gflow">Generalized Flow (gflow)</h4>
+<p>A <strong>gflow</strong> on graph $G = (V, E)$ is a pair $(g, \prec)$ where:</p>
+<ul>
+<li>$g: V \setminus O \to 2^O$ is the <strong>correction function</strong> (maps measured qubits to sets of output qubits)</li>
+<li>$\prec$ is a <strong>partial order</strong> on $V$</li>
+</ul>
+<p>satisfying for all $v \in V \setminus O$:</p>
+<ol>
+<li>$v \prec w$ for all $w \in g(v)$ (corrections are applied to future qubits)</li>
+<li>$v \in \text{odd}(g(v))$ (odd neighborhood condition)</li>
+<li>$w \in g(v)$ and $w \neq v$ implies $w \in O \cup {u : u \prec v}$</li>
+</ol>
+<p><strong>Significance:</strong> gflow ensures <strong>deterministic</strong> computation—the measurement outcomes can be corrected to give the intended unitary operation regardless of the random outcomes.</p>
+<p><strong>Numerical Verification:</strong> Our code verifies gflow for:</p>
+<ul>
+<li>Linear 3-qubit cluster: $g = {0:{1}, 1:{2}}$</li>
+<li>Linear 5-qubit cluster: $g = {0:{1}, 1:{2}, 2:{3}, 3:{4}}$</li>
+<li>2×2 grid: gflow exists with row-by-row order</li>
+</ul>
+<hr>
+<h2 id="5-the-dynamical-lie-algebra-dla">5. The Dynamical Lie Algebra (DLA)</h2>
+<h3 id="51-definition-and-computation">5.1 Definition and Computation</h3>
+<h4 id="definition-4-dynamical-lie-algebra-of-mbqc">Definition 4: Dynamical Lie Algebra of MBQC</h4>
+<p>The MBQC dynamical Lie algebra is the real vector space generated by commutators:</p>
+<p>$$\mathfrak{g}<em>{\text{MBQC}} = \langle {iH</em>{\text{CZ}}, i\sigma_k^{(v)}}<em>{v \in V, k \in {x,y,z}} \rangle</em>{\text{Lie}}$$</p>
+<p>where:</p>
+<ul>
+<li>$H_{\text{CZ}} = \frac{1}{4}(I - Z_i)(I - Z_j)$ is the CZ Hamiltonian</li>
+<li>$\sigma_k^{(v)}$ are single-qubit Pauli operators on qubit $v$</li>
+<li>$\langle \cdot \rangle_{\text{Lie}}$ denotes Lie algebra closure under commutators</li>
+</ul>
+<h4 id="computation-algorithm">Computation Algorithm</h4>
+<p>To compute the DLA:</p>
+<ol>
+<li>Start with generators $\mathcal{G} = {iH_1, iH_2, ...}$</li>
+<li>Compute all pairwise commutators $[A, B]$ for $A, B \in \mathcal{G}$</li>
+<li>Add any new linearly independent elements to $\mathcal{G}$</li>
+<li>Repeat until closure (no new elements generated)</li>
+<li>The dimension is $|\mathcal{G}|$</li>
+</ol>
+<h3 id="52-dla-dimension-as-complexity-measure">5.2 DLA Dimension as Complexity Measure</h3>
+<p>The dimension of the DLA is the critical quantity determining classical simulability:</p>
+<table>
+<thead>
+<tr>
+<th>Generator Set</th>
+<th>DLA Dimension</th>
+<th>Scaling</th>
+<th>Simulable?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-qubit Paulis only</td>
+<td>$3n$</td>
+<td>Linear</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>Paulis + CZ gates</td>
+<td>$4^n - 1$</td>
+<td>Exponential</td>
+<td>❌ No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Physical Interpretation:</strong></p>
+<ul>
+<li><strong>Polynomial DLA:</strong> All relevant observables can be tracked in polynomial space → classical computer can simulate</li>
+<li><strong>Exponential DLA:</strong> Observable space grows too fast → quantum resources required</li>
+</ul>
+<h3 id="53-numerical-verification">5.3 Numerical Verification</h3>
+<p>Our code computes DLA dimensions exactly:</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>$n$</th>
+<th>Computed dim($\mathfrak{g}$)</th>
+<th>Theoretical</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pauli-only</td>
+<td>2</td>
+<td><strong>6</strong></td>
+<td>6</td>
+<td>$3n = 6$</td>
+</tr>
+<tr>
+<td>Pauli-only</td>
+<td>4</td>
+<td><strong>12</strong></td>
+<td>12</td>
+<td>$3n = 12$</td>
+</tr>
+<tr>
+<td>Clifford+CZ</td>
+<td>2</td>
+<td><strong>15</strong></td>
+<td>15</td>
+<td>$4^2 - 1 = 15$</td>
+</tr>
+<tr>
+<td>Clifford+CZ</td>
+<td>3</td>
+<td><strong>63</strong></td>
+<td>63</td>
+<td>$4^3 - 1 = 63$</td>
+</tr>
+<tr>
+<td>Clifford+CZ</td>
+<td>4</td>
+<td><strong>255</strong></td>
+<td>255</td>
+<td>$4^4 - 1 = 255$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Finding:</strong> Entangling gates (CZ) generate the exponential DLA! Classical simulability (Gottesman-Knill) comes from <em>measurement restriction</em> to Pauli bases, not from the gate set.</p>
+<hr>
+<h2 id="6-the-central-criterion-proposition-0">6. The Central Criterion: Proposition 0</h2>
+<h3 id="proposition-0-lie-poisson-integrability-criterion">Proposition 0 (Lie-Poisson Integrability Criterion)</h3>
+<p><strong>Statement:</strong> An MBQC protocol $\Pi$ admits efficient classical simulation if and only if the dynamical Lie algebra $\mathfrak{g}_{\text{dyn}}$ satisfies the <strong>Poisson integrability condition</strong>:</p>
+<p>$$\dim(\mathfrak{g}<em>{\text{dyn}}) \in O(\text{poly}(n)) \quad \text{or} \quad \mathfrak{g}</em>{\text{dyn}} \text{ is abelian on relevant observables}$$</p>
+<p>When this holds, the momentum map $\mu: \mathcal{S}(\mathcal{H}) \to \mathfrak{g}^*_{\text{dyn}}$ factors through a polynomial-dimensional classical phase space.</p>
+<h3 id="proof-sketch">Proof Sketch</h3>
+<p><strong>($\Rightarrow$) Classical simulable implies polynomial DLA:</strong></p>
+<ul>
+<li>If the protocol is classically simulable, expectation values of all relevant observables can be computed in polynomial time</li>
+<li>This means the observable algebra must have polynomial dimension</li>
+<li>Otherwise, exponentially many observables would need tracking</li>
+</ul>
+<p><strong>($\Leftarrow$) Polynomial DLA implies classical simulation:</strong></p>
+<ul>
+<li>If $\dim(\mathfrak{g}_{\text{dyn}}) = d \in O(\text{poly}(n))$</li>
+<li>Heisenberg evolution: $O(t) = e^{iHt} O e^{-iHt}$ stays in a $d$-dimensional subspace</li>
+<li>Expectation values can be tracked by solving a $d \times d$ system of ODEs</li>
+<li>This is the g-sim algorithm (Lemma C)</li>
+</ul>
+<h3 id="geometric-interpretation">Geometric Interpretation</h3>
+<p>The momentum map $\mu: \mathcal{S}(\mathcal{H}) \to \mathfrak{g}^*$ projects quantum states onto classical phase space:</p>
+<pre class="hljs"><code><div>Quantum State Space     →→→→→→     Classical Phase Space
+    (exp dim)              μ          (poly dim if integrable)
+       ρ                  ↦           (⟨O₁⟩, ⟨O₂⟩, ..., ⟨Oₐ⟩)
+</div></code></pre>
+<p>When this projection loses too much information (exponential DLA), quantum advantages emerge.</p>
+<hr>
+<h2 id="7-classical-simulation-lemmas">7. Classical Simulation Lemmas</h2>
+<h3 id="71-lemma-a-gottesman-knill-theorem">7.1 Lemma A: Gottesman-Knill Theorem</h3>
+<p><strong>Statement:</strong> Let $\Pi = (G, \rho_G, \mathcal{M}, \mathcal{F}, \mathcal{O})$ be an MBQC protocol satisfying:</p>
+<ul>
+<li>All measurement angles $\theta_v \in {0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}}$ (Pauli bases X, Y, -X, -Y)</li>
+<li>Feed-forward $\mathcal{F}$ is $\mathbb{Z}_2$-linear</li>
+</ul>
+<p>Then $\Pi$ can be classically simulated in time $O(n^2)$ per gate via <strong>stabilizer tableau updates</strong>.</p>
+<h4 id="the-stabilizer-formalism">The Stabilizer Formalism</h4>
+<p>A <strong>stabilizer state</strong> on $n$ qubits is the unique $+1$ eigenstate of an abelian group of $n$ independent Pauli operators (the stabilizer group).</p>
+<p><strong>Representation:</strong> Instead of $2^n$ amplitudes, store $O(n^2)$ bits:</p>
+<ul>
+<li>$n$ stabilizer generators, each a Pauli string of length $n$</li>
+<li>Phase information</li>
+</ul>
+<p><strong>Clifford gates</strong> (H, S, CNOT, CZ) map stabilizer states to stabilizer states with polynomial updates.</p>
+<p><strong>Pauli measurements</strong> on stabilizer states:</p>
+<ul>
+<li>Outcome is deterministic if measurement operator commutes with all stabilizers</li>
+<li>Otherwise, random ±1 with probability 1/2 each, updating stabilizers</li>
+</ul>
+<h4 id="why-this-works">Why This Works</h4>
+<p>Under Pauli measurements, the cluster state remains in the stabilizer formalism throughout. The $\mathbb{Z}_2$-linear feed-forward corresponds to <strong>Pauli frame updates</strong>, which preserve stabilizer structure.</p>
+<p><strong>Lie-Poisson Connection:</strong> Clifford operations generate the Pauli algebra, which has dimension $O(n^2)$. This satisfies Proposition 0's integrability criterion.</p>
+<p><strong>Numerical Verification:</strong></p>
+<ul>
+<li>Bell state: quantum-stabilizer fidelity = 1.0 ✓</li>
+<li>GHZ-3: quantum-stabilizer fidelity = 1.0 ✓</li>
+<li>GHZ-4: quantum-stabilizer fidelity = 1.0 ✓</li>
+<li>Deutsch-Jozsa: quantum-stabilizer fidelity = 1.0 ✓</li>
+</ul>
+<h3 id="72-lemma-b-bounded-treewidth">7.2 Lemma B: Bounded Treewidth</h3>
+<p><strong>Statement:</strong> Let $\Pi$ be an MBQC on graph $G$ with treewidth $\text{tw}(G) = w$. Then:</p>
+<ul>
+<li>Tensor network contraction has complexity $O(2^w \cdot \text{poly}(n))$</li>
+<li>If $w \in O(\log n)$, simulation is polynomial-time</li>
+<li>Tree tensor networks (treewidth 1) admit $O(\text{poly}(n))$ simulation</li>
+</ul>
+<h4 id="treewidth-definition">Treewidth Definition</h4>
+<p>The <strong>treewidth</strong> of a graph $G$ is the minimum width of any tree decomposition:</p>
+<ul>
+<li>A tree decomposition maps vertices to &quot;bags&quot; arranged in a tree</li>
+<li>Each edge's endpoints must appear together in some bag</li>
+<li>Each vertex appears in a connected subtree</li>
+<li>Width = (max bag size) - 1</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Graph Type</th>
+<th>Treewidth</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Path</td>
+<td>1</td>
+<td>$O(2 \cdot \text{poly})$</td>
+</tr>
+<tr>
+<td>Cycle</td>
+<td>2</td>
+<td>$O(4 \cdot \text{poly})$</td>
+</tr>
+<tr>
+<td>$k \times k$ Grid</td>
+<td>$k$</td>
+<td>$O(2^k \cdot \text{poly})$</td>
+</tr>
+<tr>
+<td>Complete $K_n$</td>
+<td>$n-1$</td>
+<td>$O(2^n \cdot \text{poly})$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Numerical Verification:</strong></p>
+<ul>
+<li>Path $P_5$: tw = 1 ✓</li>
+<li>Cycle $C_5$: tw = 2 ✓</li>
+<li>2×3 Grid: tw = 2 ✓</li>
+<li>Complete $K_4$: tw = 3 ✓</li>
+</ul>
+<h4 id="lie-poisson-connection">Lie-Poisson Connection</h4>
+<p>Bounded treewidth implies the Lie algebra of correlations factorizes:</p>
+<p>$$\mathfrak{g} = \bigoplus_i \mathfrak{g}_i \quad \text{with} \quad \dim(\mathfrak{g}_i) \leq 2^w$$</p>
+<p>The Poisson structure becomes <strong>block-diagonal</strong>, hence integrable.</p>
+<h3 id="73-lemma-c-g-sim-algorithm">7.3 Lemma C: g-sim Algorithm</h3>
+<p><strong>Statement:</strong> Given MBQC generators, the dynamical Lie algebra is:</p>
+<p>$$\mathfrak{g}<em>{\text{dyn}} = \langle {iH</em>{\text{CZ}}, iH_k(\theta)}<em>k \rangle</em>{\text{Lie}}$$</p>
+<p>The <strong>g-sim algorithm</strong> provides an explicit classical simulation:</p>
+<ul>
+<li>Propagate observables on $\mathfrak{g}^*$ via Heisenberg evolution</li>
+<li>Complexity: $O(d^3)$ where $d = \dim(\mathfrak{g}_{\text{dyn}})$</li>
+</ul>
+<h4 id="the-algorithm">The Algorithm</h4>
+<ol>
+<li>Express initial observable $O(0)$ in basis of $\mathfrak{g}<em>{\text{dyn}}$: $O(0) = \sum</em>\alpha c_\alpha(0) T_\alpha$</li>
+<li>For each time step, solve: $\dot{c}<em>\alpha = \sum</em>{\beta,\gamma} c_\beta c_\gamma f_{\beta\gamma}^\alpha$</li>
+<li>Final expectation: $\langle O(t) \rangle = \sum_\alpha c_\alpha(t) \langle T_\alpha \rangle_0$</li>
+</ol>
+<p>where $f_{\beta\gamma}^\alpha$ are structure constants.</p>
+<p><strong>Relation to Proposition 0:</strong> Lemma C provides the <em>algorithmic realization</em> of Proposition 0's criterion. Where Proposition 0 states <em>when</em> classical simulation is possible (polynomial DLA dimension), Lemma C provides <em>how</em> (g-sim algorithm on $\mathfrak{g}^*$).</p>
+<p><strong>Numerical Verification:</strong> Heisenberg evolution test confirms evolved operators remain in the DLA span.</p>
+<hr>
+<h2 id="8-contextuality-as-the-quantum-resource">8. Contextuality as the Quantum Resource</h2>
+<h3 id="81-noncontextual-hidden-variable-models">8.1 Noncontextual Hidden Variable Models</h3>
+<h4 id="definition-7-noncontextual-hv-model">Definition 7: Noncontextual HV Model</h4>
+<p>A state $\rho$ admits a <strong>noncontextual hidden variable model</strong> if there exists:</p>
+<ul>
+<li>Probability space $(\Lambda, \Sigma, \nu)$</li>
+<li>Response functions $\xi_M: \Lambda \to {0,1}$ for each measurement $M$</li>
+</ul>
+<p>such that for all measurements $M$ and outcomes $a$:</p>
+<p>$$\text{Tr}(\rho , \Pi_M^{(a)}) = \int_\Lambda \xi_M^{(a)}(\lambda) , d\nu(\lambda)$$</p>
+<p><strong>Key constraint:</strong> $\xi_M$ depends only on $M$, not on other compatible measurements in the context.</p>
+<p><strong>Physical Meaning:</strong> A noncontextual model assigns definite values to all observables simultaneously, independent of what else is measured. Quantum mechanics violates this—measurement outcomes can depend on the &quot;context&quot; of which other observables are measured jointly.</p>
+<h3 id="82-the-contextual-fraction">8.2 The Contextual Fraction</h3>
+<h4 id="definition-8-contextual-fraction">Definition 8: Contextual Fraction</h4>
+<p>The <strong>contextual fraction</strong> $C_F(\rho) \in [0,1]$ quantifies the minimal weight of contextual correlations:</p>
+<p>$$C_F(\rho) = 1 - \max_{p_{\text{NC}}} { p_{\text{NC}} : P(\rho) = p_{\text{NC}} \cdot P_{\text{NC}} + (1-p_{\text{NC}}) \cdot P_{\text{C}} }$$</p>
+<p>where:</p>
+<ul>
+<li>$P(\rho)$ is the correlation polytope of the state</li>
+<li>$P_{\text{NC}}$ is a noncontextual distribution</li>
+<li>$P_{\text{C}}$ is a (possibly contextual) distribution</li>
+</ul>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>$C_F(\rho) = 0$: State admits a fully noncontextual model (classical)</li>
+<li>$C_F(\rho) &gt; 0$: State requires contextual correlations (quantum resource)</li>
+<li>$C_F(\rho) = 1$: Maximally contextual (e.g., Bell states under optimal measurements)</li>
+</ul>
+<h3 id="83-chsh-inequality-and-bell-states">8.3 CHSH Inequality and Bell States</h3>
+<p>The <strong>CHSH inequality</strong> provides a concrete test of contextuality:</p>
+<p>$$S = E(0,0) + E(0,1) + E(1,0) - E(1,1)$$</p>
+<p>where $E(a,b) = \langle A_a B_b \rangle$ for measurement choices $a, b \in {0,1}$.</p>
+<p><strong>Bounds:</strong></p>
+<ul>
+<li>Classical (local) bound: $|S| \leq 2$</li>
+<li>Quantum (Tsirelson) bound: $|S| \leq 2\sqrt{2} \approx 2.828$</li>
+</ul>
+<p><strong>For Bell state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$ with optimal measurements:</strong></p>
+<p>$$S = 2\sqrt{2}$$</p>
+<p>The contextual fraction is then:</p>
+<p>$$C_F = \frac{|S| - 2}{2\sqrt{2} - 2} = 1$$</p>
+<p><strong>Numerical Verification:</strong></p>
+<ul>
+<li>Bell state: $S = 2.828$, $C_F = 1.0$ ✓</li>
+<li>Product state: $S = 2.0$, $C_F = 0.0$ ✓</li>
+<li>Partial violation $S = 2.4$: $C_F = 0.48$ ✓</li>
+</ul>
+<hr>
+<h2 id="9-main-theorems">9. Main Theorems</h2>
+<h3 id="91-theorem-1-sufficient-conditions-for-classical-emulation">9.1 Theorem 1: Sufficient Conditions for Classical Emulation</h3>
+<p><strong>Statement:</strong> An MBQC protocol $\Pi$ is efficiently classically simulable if <em>any</em> of the following conditions hold:</p>
+<p><strong>(A) Clifford Restriction:</strong> All measurements in Pauli bases with $\mathbb{Z}_2$-linear feed-forward</p>
+<ul>
+<li>Implies $\dim(\mathfrak{g}) = O(n^2)$ via Pauli algebra</li>
+<li>Simulation: Stabilizer tableau in $O(n^2)$ time per gate</li>
+</ul>
+<p><strong>(B) Bounded Treewidth:</strong> $\text{tw}(G) \in O(\log n)$</p>
+<ul>
+<li>Implies tensor network contraction in $O(\text{poly}(n))$</li>
+<li>Lie algebra factorizes: $\mathfrak{g} = \bigoplus_i \mathfrak{g}_i$</li>
+</ul>
+<p><strong>(C) Polynomial DLA:</strong> $\dim(\mathfrak{g}_{\text{dyn}}) \in O(\text{poly}(n))$</p>
+<ul>
+<li>Direct application of Proposition 0</li>
+<li>Simulation: g-sim algorithm in $O(d^3)$</li>
+</ul>
+<p><strong>Moreover:</strong> Under any of these conditions, the MBQC can be emulated by classical optical systems using <strong>Mueller matrix calculus</strong> on the Poincaré sphere.</p>
+<h3 id="92-theorem-2-contextuality-barrier-no-go-result">9.2 Theorem 2: Contextuality Barrier (No-Go Result)</h3>
+<p><strong>Statement:</strong> Let $\Pi$ be an MBQC computing Boolean function $f: {0,1}^n \to {0,1}$ with success probability $p_s$. Assume:</p>
+<ul>
+<li><strong>(H1)</strong> Feed-forward $\mathcal{F}$ is $\mathbb{Z}_2$-linear</li>
+</ul>
+<p>If $f$ is <em>nonlinear</em> over $\mathbb{Z}_2$, then:</p>
+<p>$$p_s \leq 1 - (1 - C_F(\rho_G)) \cdot \frac{d_H(f, \text{Aff}_n)}{2^n}$$</p>
+<p>where:</p>
+<ul>
+<li>$C_F(\rho_G)$ is the contextual fraction of the resource state</li>
+<li>$\text{Aff}_n$ is the set of affine Boolean functions</li>
+<li>$d_H(f, \text{Aff}<em>n) = \min</em>{g \in \text{Aff}_n} |{x : f(x) \neq g(x)}|$ is the Hamming distance to affine</li>
+</ul>
+<h4 id="proof-outline">Proof Outline</h4>
+<p><strong>Step 1 (HV Structure):</strong> In a noncontextual model, measurement outcomes are $m_i = v_i(\lambda)$ for hidden variable $\lambda$.</p>
+<p><strong>Step 2 (Linear Control):</strong> $\mathbb{Z}<em>2$-linear feed-forward means $s_t = A \cdot m</em>{&lt;t} + b \cdot x$ (mod 2). Control is deterministic given $\lambda$ and input $x$.</p>
+<p><strong>Step 3 (Function Class):</strong> Under NC + linear control, achievable output functions are restricted to affine functions over $\mathbb{Z}_2$. This is because:</p>
+<ul>
+<li>Affine ∘ Affine = Affine</li>
+<li>The composition of affine operations cannot produce nonlinear outputs</li>
+</ul>
+<p><strong>Step 4 (Distance Bound):</strong> Any nonlinear $f$ has $d_H(f, \text{Aff}_n) &gt; 0$. The probability of correctly computing $f$ on inputs where it differs from all affine functions is bounded by the contextual fraction.</p>
+<p><strong>Step 5 (Conclusion):</strong> Combining bounds yields the inequality.</p>
+<h4 id="corollary-21-necessity-of-contextuality">Corollary 2.1: Necessity of Contextuality</h4>
+<p>If $p_s \to 1$ and $f$ is nonlinear (i.e., $d_H(f, \text{Aff}_n) &gt; 0$), then $C_F(\rho_G) &gt; 0$: the resource state <strong>must be contextual</strong>.</p>
+<p><strong>Lie-Poisson Interpretation:</strong> Contextuality ($C_F &gt; 0$) implies the Lie-Poisson structure is <em>non-integrable</em>: no finite-dimensional classical phase space can reproduce the quantum correlations.</p>
+<p><strong>Numerical Verification:</strong></p>
+<ul>
+<li>AND function: $d_H = 1 &gt; 0$ (nonlinear) ✓</li>
+<li>OR function: $d_H = 1 &gt; 0$ (nonlinear) ✓</li>
+<li>XOR function: $d_H = 0$ (affine) ✓</li>
+</ul>
+<h3 id="93-theorem-3-structural-partition">9.3 Theorem 3: Structural Partition</h3>
+<p><strong>Statement:</strong> For any MBQC instance $\Pi$, the canonical primitives ($P_1$=Qubits, $P_2$=Cluster, $P_3$=Graph, $P_4$=Measurements, $P_5$=Algorithm) admit a partition:</p>
+<p>$${P_1, \ldots, P_5} = S_{\text{class}} \sqcup S_{\text{quant}}$$</p>
+<p>where:</p>
+<ul>
+<li>$S_{\text{class}}$: Primitives satisfying at least one condition of Theorem 1 (classically exchangeable)</li>
+<li>$S_{\text{quant}}$: Primitives violating all conditions of Theorem 1 (quantum-essential)</li>
+</ul>
+<p><strong>Furthermore:</strong> If $\Pi$ computes a nonlinear Boolean function with $p_s &gt; 1 - \epsilon$, then by Theorem 2, $|S_{\text{quant}}| \geq 1$ and the resource state must exhibit contextuality.</p>
+<h3 id="94-theorem-4-universality-criterion">9.4 Theorem 4: Universality Criterion</h3>
+<p><strong>Statement:</strong> An MBQC protocol $\Pi$ is <strong>computationally universal</strong> (can simulate any polynomial-time quantum computation) if and only if:</p>
+<p><strong>(U1) Contextual resource state:</strong> $C_F(\rho_G) &gt; 0$</p>
+<p><strong>(U2) Non-Clifford rotations:</strong> Measurement angles include $\theta = \pi/8$ for T-gate injection</p>
+<p><strong>(U3) Nonlinear feed-forward:</strong> Feed-forward supports nonlinear Boolean combinations (e.g., $\theta_t = f(m_1 \land m_2)$)</p>
+<h4 id="corollary-41">Corollary 4.1</h4>
+<p>Removing any single condition (U1), (U2), or (U3) reduces computational power to at most $\mathsf{BPP}$ (classical polynomial time):</p>
+<ul>
+<li>Without (U1): Theorem 2 bounds success probability for nonlinear functions</li>
+<li>Without (U2): Gottesman-Knill theorem applies (Clifford-only)</li>
+<li>Without (U3): Feed-forward is $\mathbb{Z}_2$-linear, Lemma A applies</li>
+</ul>
+<p><strong>Numerical Verification:</strong></p>
+<ul>
+<li>T gate produces magic states: max stabilizer fidelity = 0.854 &lt; 1 ✓</li>
+<li>$T \cdot X \cdot T^\dagger$ is not Pauli ✓</li>
+<li>$S \cdot X \cdot S^\dagger = \pm Y$ (S is Clifford) ✓</li>
+</ul>
+<h3 id="95-theorem-5-complete-classification">9.5 Theorem 5: Complete Classification</h3>
+<p><strong>Statement:</strong></p>
+<p><strong>Part I (Decomposition):</strong> Every MBQC $\Pi$ admits canonical decomposition into 5 primitives ${P_1, \ldots, P_5}$ (qubits, cluster, graph, measurements, algorithm).</p>
+<p><strong>Part II (Classification):</strong> Each primitive $P_i$ induces a Lie subalgebra $\mathfrak{g}<em>i \subseteq \mathfrak{g}</em>{\text{dyn}}$. Primitive $P_i$ is classically exchangeable iff $\dim(\mathfrak{g}_i) \in O(\text{poly})$ (Proposition 0).</p>
+<p><strong>Part III (Composition):</strong> Classically exchangeable primitives can be replaced by classical emulations preserving the output distribution.</p>
+<h4 id="corollary-51-quantum-advantage">Corollary 5.1: Quantum Advantage</h4>
+<p>If MBQC computes a classically hard problem with high probability, then $\exists P_i$ with $\dim(\mathfrak{g}_i) \in \Omega(4^n)$ (by Theorem 2).</p>
+<hr>
+<h2 id="10-classical-optical-emulation-strategies">10. Classical Optical Emulation Strategies</h2>
+<h3 id="strategy-classification-s1%E2%80%93s6">Strategy Classification (S1–S6)</h3>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Degrees of Freedom</th>
+<th>$\dim(\mathfrak{g})$</th>
+<th>$p_s$ Ceiling</th>
+<th>Bound Origin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S1:</strong> Path⊗Polarization</td>
+<td>Path + Pol</td>
+<td><strong>4</strong></td>
+<td>≤ 0.50</td>
+<td>2-path limit</td>
+</tr>
+<tr>
+<td><strong>S2:</strong> Mueller Matrix</td>
+<td>Stokes→Mueller</td>
+<td><strong>3n</strong></td>
+<td>≤ 0.75</td>
+<td>Mueller positivity</td>
+</tr>
+<tr>
+<td><strong>S3:</strong> Spatial OAM</td>
+<td>OAM modes $\ell$</td>
+<td><strong>(2L+1)²</strong></td>
+<td>$1 - \frac{1}{d}$</td>
+<td>Finite modes</td>
+</tr>
+<tr>
+<td><strong>S4:</strong> Hybrid</td>
+<td>Path⊗Pol⊗OAM</td>
+<td><strong>O(d²)</strong></td>
+<td>≤ 0.875</td>
+<td>Product bound</td>
+</tr>
+<tr>
+<td><strong>S5:</strong> KLM Boundary</td>
+<td>Ancilla + postselect</td>
+<td><strong>4^n - 1</strong></td>
+<td>→ 1</td>
+<td>Full $\mathfrak{su}(2^n)$</td>
+</tr>
+<tr>
+<td><strong>S6:</strong> Postselection</td>
+<td>Intensity threshold</td>
+<td><strong>1</strong></td>
+<td>≤ 0.25</td>
+<td>Classical prob</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lie-poisson-analysis">Lie-Poisson Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Effective $\mathfrak{g}$</th>
+<th>$\dim(\mathfrak{g})$</th>
+<th>Abelian?</th>
+<th>Casimirs</th>
+<th>Integrability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S2 (Clifford)</td>
+<td>$\mathfrak{so}(3)$</td>
+<td><strong>3</strong></td>
+<td>No</td>
+<td>$</td>
+<td>\vec{S}</td>
+</tr>
+<tr>
+<td>S4 (Hybrid Clifford)</td>
+<td>$\mathfrak{so}(3)^{\otimes k}$</td>
+<td><strong>3k</strong></td>
+<td>No</td>
+<td>$k$</td>
+<td>✅ Integrable</td>
+</tr>
+<tr>
+<td>S1 (Path⊗Pol)</td>
+<td>$\mathfrak{u}(1) \oplus \mathfrak{so}(3)$</td>
+<td><strong>4</strong></td>
+<td>Partial</td>
+<td>2</td>
+<td>✅ Integrable</td>
+</tr>
+<tr>
+<td>S2 (T-gate)</td>
+<td>$\mathfrak{su}(2^n)$</td>
+<td><strong>4^n - 1</strong></td>
+<td>No</td>
+<td>1</td>
+<td>❌ Non-integrable</td>
+</tr>
+<tr>
+<td>S5 (KLM universal)</td>
+<td>$\mathfrak{su}(2^n)$</td>
+<td><strong>4^n - 1</strong></td>
+<td>No</td>
+<td>1</td>
+<td>❌ Non-integrable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Finding:</strong> Classical strategies (S1-S4) yield polynomial-dimensional Lie algebras—integrable Lie-Poisson structures. Universal quantum (S5, T-gates) yields full $\mathfrak{su}(2^n)$—non-integrable, confirming Proposition 0.</p>
+<hr>
+<h2 id="11-connection-to-quantum-error-correction">11. Connection to Quantum Error Correction</h2>
+<h3 id="proposition-1-syndrome-geometry">Proposition 1: Syndrome Geometry</h3>
+<p>The momentum map $\mu: \mathcal{S}(\mathcal{H}) \to \mathfrak{g}^*$ induces <strong>syndrome extraction</strong> for stabilizer codes:</p>
+<p>$$\mu(|\psi\rangle\langle\psi|)<em>\alpha = \langle\psi| S</em>\alpha |\psi\rangle = \pm 1$$</p>
+<p>where:</p>
+<ul>
+<li>$+1$ indicates $|\psi\rangle$ is in the code space for stabilizer $S_\alpha$</li>
+<li>$-1$ indicates an error has occurred</li>
+</ul>
+<h3 id="proposition-2-error-correction-as-symplectic-reduction">Proposition 2: Error Correction as Symplectic Reduction</h3>
+<p>Stabilizer QEC admits interpretation as <strong>symplectic reduction</strong>:</p>
+<ul>
+<li>Code space = level set $\mu^{-1}(+1, \ldots, +1)$</li>
+<li>Logical operations act on the <strong>reduced phase space</strong></li>
+</ul>
+<p><strong>Numerical Verification:</strong></p>
+<ul>
+<li>$|0\rangle$: syndrome for $Z$ = +1 ✓</li>
+<li>$|1\rangle$: syndrome for $Z$ = -1 (error detected) ✓</li>
+</ul>
+<h3 id="unifying-framework">Unifying Framework</h3>
+<p>The Lie-Poisson framework unifies MBQC classicalization with QEC:</p>
+<ul>
+<li>Both are manifestations of <strong>reduction theory</strong> on the same geometric structure</li>
+<li>Syndromes are components of the momentum map</li>
+<li>Error correction is projection onto a symplectic leaf</li>
+</ul>
+<hr>
+<h2 id="12-numerical-validation-summary">12. Numerical Validation Summary</h2>
+<h3 id="validation-suite-results">Validation Suite Results</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Tests</th>
+<th>Passed</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direct Quantum-Classical Comparisons</td>
+<td>8</td>
+<td>8</td>
+<td>✅ 100%</td>
+</tr>
+<tr>
+<td>Algorithm Benchmarks</td>
+<td>9</td>
+<td>9</td>
+<td>✅ 100%</td>
+</tr>
+<tr>
+<td>Gap-Filling Validations</td>
+<td>18</td>
+<td>18</td>
+<td>✅ 100%</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>35</strong></td>
+<td><strong>35</strong></td>
+<td>✅ <strong>100%</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-numerical-results">Key Numerical Results</h3>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Numerical Result</th>
+<th>Theoretical</th>
+<th>Match</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\dim(\mathfrak{su}(2)) = 3$</td>
+<td>3</td>
+<td>3</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>$\dim(\mathfrak{su}(4)) = 15$</td>
+<td>15</td>
+<td>$4^2 - 1$</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Bell CHSH value</td>
+<td>2.828</td>
+<td>$2\sqrt{2}$</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Bell $C_F$</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Grover n=4 success</td>
+<td>0.961</td>
+<td>0.961</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Teleportation fidelity</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Path treewidth</td>
+<td>1</td>
+<td>1</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>AND is nonlinear</td>
+<td>True</td>
+<td>True</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>XOR is affine</td>
+<td>True</td>
+<td>True</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="13-conceptual-flow-and-interconnections">13. Conceptual Flow and Interconnections</h2>
+<h3 id="the-grand-picture">The Grand Picture</h3>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────────────────────┐
+│                        LIE-POISSON FRAMEWORK                                │
+│                                                                             │
+│  Quantum State Space ─────μ─────► Lie Algebra Dual (𝔤*)                    │
+│        (exp dim)          momentum     (finite dim if integrable)           │
+│                            map                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      PROPOSITION 0: THE CRITERION                           │
+│                                                                             │
+│     Classical simulation ⟺ dim(𝔤_dyn) ∈ O(poly(n))                        │
+│                                                                             │
+│  This is the central geometric criterion that unifies all results.          │
+└─────────────────────────────────────────────────────────────────────────────┘
+                    ┌───────────────┼───────────────┐
+                    ▼               ▼               ▼
+    ┌───────────────────┐  ┌───────────────────┐  ┌───────────────────┐
+    │    LEMMA A        │  │    LEMMA B        │  │    LEMMA C        │
+    │   Gottesman-Knill │  │ Bounded Treewidth │  │    g-sim          │
+    │                   │  │                   │  │                   │
+    │ Clifford → O(n²)  │  │ tw(G)=w → O(2^w)  │  │ DLA → O(d³)       │
+    │ Pauli algebra     │  │ Factorized 𝔤      │  │ Heisenberg evol   │
+    └───────────────────┘  └───────────────────┘  └───────────────────┘
+                    │               │               │
+                    └───────────────┼───────────────┘
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │   THEOREM 1: SUFFICIENT       │
+                    │   CONDITIONS                  │
+                    │                               │
+                    │   (A) ∨ (B) ∨ (C) → Classical │
+                    └───────────────────────────────┘
+                                    │
+                    ┌───────────────┴───────────────┐
+                    ▼                               ▼
+    ┌───────────────────────────────┐  ┌───────────────────────────────┐
+    │   THEOREM 2: BARRIER          │  │   THEOREM 4: UNIVERSALITY     │
+    │   (Contextuality)             │  │   (What's needed for BQP)     │
+    │                               │  │                               │
+    │   Nonlinear f + p_s→1         │  │   (U1) C_F &gt; 0                │
+    │   ⟹ C_F &gt; 0 required         │  │   (U2) Non-Clifford angles    │
+    │                               │  │   (U3) Nonlinear feedforward  │
+    │   This is the NO-GO result    │  │                               │
+    └───────────────────────────────┘  └───────────────────────────────┘
+                    │                               │
+                    └───────────────┬───────────────┘
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │   THEOREM 5: CLASSIFICATION   │
+                    │                               │
+                    │   Every MBQC decomposes into  │
+                    │   S_class ⊔ S_quant           │
+                    │                               │
+                    │   Classical ⟺ poly DLA       │
+                    │   Quantum ⟺ exp DLA          │
+                    └───────────────────────────────┘
+</div></code></pre>
+<h3 id="key-conceptual-connections">Key Conceptual Connections</h3>
+<ol>
+<li>
+<p><strong>Momentum Map → DLA → Simulability</strong></p>
+<ul>
+<li>The momentum map projects quantum states to classical observables</li>
+<li>DLA dimension determines how many observables need tracking</li>
+<li>Polynomial DLA = integrable = classically simulable</li>
+</ul>
+</li>
+<li>
+<p><strong>Contextuality → Non-integrability → Quantum Advantage</strong></p>
+<ul>
+<li>Contextuality ($C_F &gt; 0$) means no classical model exists</li>
+<li>Geometrically: Lie-Poisson structure is non-integrable</li>
+<li>Computationally: exponential classical resources needed</li>
+</ul>
+</li>
+<li>
+<p><strong>Clifford vs Universal</strong></p>
+<ul>
+<li>Clifford gates generate $O(n^2)$ DLA (Pauli algebra)</li>
+<li>Adding T gate generates $O(4^n)$ DLA (full $\mathfrak{su}(2^n)$)</li>
+<li>The transition is <strong>sharp</strong>: one non-Clifford gate suffices</li>
+</ul>
+</li>
+<li>
+<p><strong>Feed-forward Linearity → Function Class</strong></p>
+<ul>
+<li>$\mathbb{Z}_2$-linear feed-forward → only affine functions computable</li>
+<li>Nonlinear feed-forward → universal computation possible</li>
+<li>This is the algorithmic manifestation of contextuality requirements</li>
+</ul>
+</li>
+<li>
+<p><strong>Treewidth → Tensor Network → Entanglement Structure</strong></p>
+<ul>
+<li>Low treewidth → limited entanglement → efficient contraction</li>
+<li>High treewidth → complex entanglement → exponential classical cost</li>
+<li>Geometry of graph encodes computational complexity</li>
+</ul>
+</li>
+</ol>
+<h3 id="summary-of-main-result">Summary of Main Result</h3>
+<p><strong>The Lie-Poisson Criterion (Proposition 0 + Theorems 1-5):</strong></p>
+<blockquote>
+<p>Classical optical MBQC emulation is possible if and only if the dynamical Lie algebra satisfies $\dim(\mathfrak{g}_{\text{dyn}}) \in O(\text{poly}(n))$. Quantum advantage emerges precisely when this integrability condition fails.</p>
+</blockquote>
+<p>This single geometric criterion:</p>
+<ul>
+<li>Unifies three independent simulation methods (Clifford, treewidth, g-sim)</li>
+<li>Explains why contextuality is the quantum resource</li>
+<li>Characterizes the classical-quantum boundary precisely</li>
+<li>Connects to QEC via momentum map/syndrome correspondence</li>
+</ul>
+<hr>
+<h2 id="appendix-preparation-notes-for-presentation">Appendix: Preparation Notes for Presentation</h2>
+<h3 id="key-points-to-emphasize">Key Points to Emphasize</h3>
+<ol>
+<li>
+<p><strong>Geometry is fundamental:</strong> The Poincaré sphere is a coadjoint orbit—this isn't just a visualization but the natural geometric structure.</p>
+</li>
+<li>
+<p><strong>DLA is computable:</strong> We can actually compute the dimension and verify the theory numerically.</p>
+</li>
+<li>
+<p><strong>Contextuality is measurable:</strong> The contextual fraction $C_F$ can be extracted experimentally via Bell-type tests.</p>
+</li>
+<li>
+<p><strong>The criterion is sharp:</strong> Polynomial vs exponential DLA exactly distinguishes classical from quantum.</p>
+</li>
+<li>
+<p><strong>Practical implications:</strong> Strategies S1-S4 give concrete classical implementations with quantifiable limitations.</p>
+</li>
+</ol>
+<h3 id="potential-questions-and-answers">Potential Questions and Answers</h3>
+<p><strong>Q: Why use Lie-Poisson geometry instead of other frameworks?</strong>
+A: The Lie-Poisson structure naturally arises from the symmetry group of quantum mechanics. Coadjoint orbits are the correct phase spaces, and the momentum map is the canonical way to project quantum states to classical descriptions.</p>
+<p><strong>Q: Is the DLA dimension criterion tight?</strong>
+A: Yes for the cases studied. Open Problem 2 asks whether it's tight in general—we conjecture it is, but proving both directions rigorously remains open.</p>
+<p><strong>Q: How does this relate to other quantum advantage results?</strong>
+A: Our framework unifies several known results (Gottesman-Knill, tensor networks, contextuality bounds) under a single geometric criterion. The contextuality barrier (Theorem 2) is related to but distinct from Bell inequalities.</p>
+<p><strong>Q: Can this be extended to continuous-variable systems?</strong>
+A: This is Open Problem 1. The challenge is that CV systems have infinite-dimensional Lie algebras, but similar integrability criteria should exist.</p>
+<hr>
+<p><em>Document prepared for the 46th Winter School Geometry and Physics, Srní, Czech Republic, January 17-24, 2026.</em></p>
+
+</body>
+</html>

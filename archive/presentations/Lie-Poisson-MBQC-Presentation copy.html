@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lie-Poisson Geometric Criteria for Classical Optical MBQC Emulation</title>
+    
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            background-color: #0a0f1a;
+        }
+        .slide {
+            width: 960px;
+            height: 600px;
+            margin: 20px auto;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        h1 { font-size: 2.5rem; color: #38bdf8; margin-bottom: 1rem; }
+        h2 { font-size: 1.75rem; color: #38bdf8; margin-bottom: 1rem; }
+        h3 { font-size: 1.25rem; color: #94a3b8; margin-bottom: 0.5rem; }
+        .subtitle { color: #94a3b8; font-size: 1.1rem; }
+        .content { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; }
+        
+        /* Mathematical boxes */
+        .definition {
+            background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem 1.25rem;
+            margin: 0.75rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .definition-title { color: #60a5fa; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        
+        .lemma {
+            background: linear-gradient(135deg, #1a3d2e 0%, #1e293b 100%);
+            border-left: 4px solid #10b981;
+            padding: 1rem 1.25rem;
+            margin: 0.75rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .lemma-title { color: #34d399; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        
+        .theorem {
+            background: linear-gradient(135deg, #3d1a3d 0%, #1e293b 100%);
+            border: 2px solid #a855f7;
+            padding: 1rem 1.25rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+        }
+        .theorem-title { color: #c084fc; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+        
+        .proposition {
+            background: linear-gradient(135deg, #3d2a1a 0%, #1e293b 100%);
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.25rem;
+            margin: 0.75rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .proposition-title { color: #fbbf24; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        
+        .corollary {
+            background: linear-gradient(135deg, #1a2d3d 0%, #1e293b 100%);
+            border-left: 4px solid #06b6d4;
+            padding: 1rem 1.25rem;
+            margin: 0.75rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .corollary-title { color: #22d3ee; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        
+        .proof {
+            background-color: #1e293b;
+            border-left: 3px solid #64748b;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+        }
+        .proof-title { color: #94a3b8; font-style: italic; margin-bottom: 0.25rem; }
+        .qed { text-align: right; color: #64748b; }
+        
+        .remark {
+            background-color: #1e293b;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+        
+        ul { margin-left: 1.5rem; }
+        li { margin-bottom: 0.4rem; font-size: 0.9rem; color: #cbd5e1; }
+        
+        .math-display { text-align: center; margin: 1rem 0; font-size: 1.1rem; }
+        .small { font-size: 0.85rem; }
+        .tiny { font-size: 0.75rem; }
+        .muted { color: #94a3b8; }
+        .accent { color: #38bdf8; }
+        .success { color: #10b981; }
+        .warning { color: #f59e0b; }
+        .danger { color: #ef4444; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        th, td { padding: 0.5rem; text-align: left; border-bottom: 1px solid #334155; }
+        th { color: #94a3b8; font-weight: 600; }
+        
+        .center { text-align: center; }
+        .flex-center { display: flex; justify-content: center; align-items: center; flex: 1; }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 1: Title -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide" style="justify-content: center; align-items: center; text-align: center;">
+    <h1 style="font-size: 2rem; line-height: 1.3;">Lie-Poisson Geometric Criteria for<br/>Classical Optical MBQC Emulation</h1>
+    <div style="margin-top: 2rem; color: #cbd5e1; font-size: 0.95rem;">
+        <p>Hubert Kołcz, M.Sc. Eng.</p>
+        <p>IEEE Graduate Student Member (Warsaw University of Technology)</p>
+    </div>
+    <p class="tiny muted" style="margin-top: 3rem;">46th Winter School Geometry and Physics · Srní, Czech Republic · January 17-24, 2026</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 2: Abstract & Motivation -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Abstract & Motivation</h2>
+    <div class="content">
+        <p class="small" style="color: #cbd5e1; margin-bottom: 1rem;">
+            This work develops a <strong class="accent">Lie-Poisson geometric framework</strong> to establish 
+            criteria for classical emulation of Measurement-Based Quantum Computation (MBQC) algorithms 
+            using photonic systems.
+        </p>
+        <div class="definition">
+            <div class="definition-title">Central Research Question</div>
+            <p class="small">Under what precise mathematical conditions—characterized via Lie-Poisson geometry—can 
+            photonic MBQC algorithms be reproduced by purely classical optical means (Mueller matrices, 
+            linear interferometry)?</p>
+        </div>
+        <p class="small muted" style="margin-top: 1rem;"><strong>Key Insight:</strong> The boundary between 
+        quantum advantage and classical simulability in photonic MBQC can be characterized by 
+        <em>contextuality barriers</em> arising from non-commutative Lie algebra structures.</p>
+        <p class="small" style="color: #cbd5e1; margin-top: 1rem;"><strong>Goals:</strong></p>
+        <ul class="tiny">
+            <li>Formalize MBQC protocols using symplectic/Poisson geometric structures</li>
+            <li>Establish necessary and sufficient conditions for classical emulation</li>
+            <li>Connect to quantum error correction formalism via momentum maps</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 3: Preliminary Definitions I -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Preliminary Definitions I</h2>
+    <div class="content">
+        <div class="definition">
+            <div class="definition-title">Definition 1 (Poincaré Sphere Representation)</div>
+            <p class="small">A single photonic qubit is represented as a point on the Poincaré sphere 
+            <span class="katex-inline">S^2 \subset \mathbb{R}^3</span>. The density matrix admits the representation:</p>
+            <div class="math-display katex-display">\rho = \frac{1}{2}\left(I + \sum_{i=1}^{3} s_i \sigma_i\right)</div>
+            <p class="small">where <span class="katex-inline">\vec{s} = (s_1, s_2, s_3) \in S^2</span> is the Stokes vector 
+            and <span class="katex-inline">\sigma_i</span> are Pauli matrices.</p>
+        </div>
+        
+        <div class="definition">
+            <div class="definition-title">Definition 2 (Cluster State)</div>
+            <p class="small">Given graph <span class="katex-inline">G = (V, E)</span>, the cluster state is:</p>
+            <div class="math-display katex-display">|\Psi_G\rangle = \prod_{(i,j) \in E} \text{CZ}_{ij} \bigotimes_{v \in V} |+\rangle_v</div>
+            <p class="small">where <span class="katex-inline">\text{CZ}_{ij} = |0\rangle\langle 0| \otimes I + |1\rangle\langle 1| \otimes Z</span> 
+            is the controlled-Z gate.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 4: Preliminary Definitions II -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Preliminary Definitions II</h2>
+    <div class="content">
+        <div class="definition">
+            <div class="definition-title">Definition 3 (MBQC Protocol)</div>
+            <p class="small">An MBQC protocol is a 5-tuple <span class="katex-inline">\Pi = (G, \rho_G, \mathcal{M}, \mathcal{F}, \mathcal{O})</span> where:</p>
+            <ul class="tiny" style="margin-top: 0.5rem;">
+                <li><span class="katex-inline">G = (V, E)</span>: computation graph with gflow structure</li>
+                <li><span class="katex-inline">\rho_G</span>: cluster state on graph <span class="katex-inline">G</span></li>
+                <li><span class="katex-inline">\mathcal{M} = \{M_v(\theta_v)\}_{v \in V}</span>: measurement operators with adaptive angles</li>
+                <li><span class="katex-inline">\mathcal{F}: \{0,1\}^* \times X \to \Theta</span>: feed-forward function determining angles</li>
+                <li><span class="katex-inline">\mathcal{O}: \{0,1\}^{|V|} \to Y</span>: classical output function</li>
+            </ul>
+        </div>
+        
+        <div class="definition">
+            <div class="definition-title">Definition 4 (Lie Algebra of Measurements)</div>
+            <p class="small">The measurement Lie algebra is the real vector space:</p>
+            <div class="math-display katex-display">\mathfrak{g}_{\text{MBQC}} = \langle \{iK_v, iS_\alpha\}_{v \in V, \alpha} \rangle_{\text{Lie}}</div>
+            <p class="small">generated by stabilizer generators <span class="katex-inline">K_v</span> and syndrome operators 
+            <span class="katex-inline">S_\alpha</span> under the Lie bracket.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 5: Poincaré Sphere as Coadjoint Orbit (KKS Theorem) -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Poincaré Sphere as Coadjoint Orbit</h2>
+    <div class="content">
+        <div class="theorem">
+            <div class="theorem-title">Theorem (Kirillov-Kostant-Souriau) [6]</div>
+            <p class="small">Each coadjoint orbit <span class="katex-inline">\mathcal{O}_\mu = \{\text{Ad}^*_g \mu : g \in G\} \subset \mathfrak{g}^*</span> 
+            carries a canonical symplectic structure:</p>
+            <div class="math-display katex-display">\omega_\mu(\xi_{\mathfrak{g}^*}, \eta_{\mathfrak{g}^*}) = \langle \mu, [\xi, \eta] \rangle</div>
+            <p class="small">This makes every coadjoint orbit a <em>symplectic manifold</em>.</p>
+        </div>
+        
+        <div class="proposition">
+            <div class="proposition-title">Application to Photonic Qubits</div>
+            <p class="small">The Poincaré sphere <span class="katex-inline">S^2 \cong SU(2)/U(1)</span> is a coadjoint orbit of 
+            <span class="katex-inline">SU(2)</span>, hence a <em>symplectic leaf</em> of the Lie-Poisson structure on 
+            <span class="katex-inline">\mathfrak{su}(2)^*</span>.</p>
+            <ul class="tiny" style="margin: 0.5rem 0;">
+                <li>Symplectic form: <span class="katex-inline">\omega = \frac{1}{2}\sin\theta \, d\theta \wedge d\phi</span> (area form on <span class="katex-inline">S^2</span>)</li>
+                <li>Casimir invariant: <span class="katex-inline">C(\vec{S}) = S_1^2 + S_2^2 + S_3^2</span> labels orbits (purity of quantum state)</li>
+            </ul>
+        </div>
+        
+        <div class="remark">
+            <strong>Key Insight:</strong> Photonic MBQC with polarization encoding via KLM paradigm (linear optics + 
+            probabilistic entanglement) evolves states on products of coadjoint orbits <span class="katex-inline">(S^2)^{\times n}</span>.
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 6: Lie-Poisson Structure -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>The Lie-Poisson Framework</h2>
+    <div class="content">
+        <div class="definition">
+            <div class="definition-title">Definition 5 (Quantum Momentum Map)</div>
+            <p class="small">For a Lie algebra <span class="katex-inline">\mathfrak{g}</span> of observables, 
+            the quantum momentum map <span class="katex-inline">\mu: \mathcal{S}(\mathcal{H}) \to \mathfrak{g}^*</span> 
+            is defined by:</p>
+            <div class="math-display katex-display">\mu(\rho)_\alpha = \text{Tr}(\rho \, S_\alpha)</div>
+            <p class="small">This generalizes the classical momentum map to quantum state space, 
+            mapping density matrices to the dual of the observable Lie algebra.</p>
+        </div>
+        
+        <div class="definition">
+            <div class="definition-title">Definition 6 (Lie-Poisson Bracket)</div>
+            <p class="small">On <span class="katex-inline">\mathfrak{g}^*</span>, the canonical Lie-Poisson bracket is:</p>
+            <div class="math-display katex-display">\{f, g\}(\mu) = \langle \mu, [df(\mu), dg(\mu)] \rangle</div>
+            <p class="small">For syndrome coordinates: <span class="katex-inline">\{\mu_\alpha, \mu_\beta\} = \mu_{[\alpha, \beta]}</span></p>
+        </div>
+        
+        <div class="remark">
+            <strong>Remark:</strong> The non-commutativity of the Lie bracket 
+            <span class="katex-inline">[iK_v, iS_\alpha] \neq 0</span> is the <em>geometric obstruction</em> 
+            to classical simulation via Mueller matrices.
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 7: Contextuality Definition -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Contextuality: The Quantum Resource</h2>
+    <div class="content">
+        <div class="definition">
+            <div class="definition-title">Definition 7 (Noncontextual Hidden Variable Model)</div>
+            <p class="small">A state <span class="katex-inline">\rho</span> admits a noncontextual HV model if there exists 
+            a probability space <span class="katex-inline">(\Lambda, \Sigma, \nu)</span> and response functions 
+            <span class="katex-inline">\xi_M: \Lambda \to \{0,1\}</span> such that:</p>
+            <div class="math-display katex-display">\text{Tr}(\rho \, \Pi_M^{(a)}) = \int_\Lambda \xi_M^{(a)}(\lambda) \, d\nu(\lambda)</div>
+            <p class="small">with <span class="katex-inline">\xi_M</span> depending only on measurement <span class="katex-inline">M</span>, 
+            not on other compatible measurements.</p>
+        </div>
+        
+        <div class="definition">
+            <div class="definition-title">Definition 8 (Contextual Fraction)</div>
+            <p class="small">The contextual fraction <span class="katex-inline">C_F(\rho) \in [0,1]</span> quantifies the 
+            minimal "amount of contextuality" needed:</p>
+            <div class="math-display katex-display">C_F(\rho) = 1 - \sup_{\text{NC models}} \int_\Lambda d\nu(\lambda)</div>
+            <p class="small"><span class="katex-inline">C_F(\rho) = 0</span> iff <span class="katex-inline">\rho</span> is noncontextual; 
+            <span class="katex-inline">C_F(\rho) > 0</span> indicates genuine quantum resource.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 7: Lemma A - Gottesman-Knill -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Classicalization Conditions: Lemma A</h2>
+    <div class="content">
+        <div class="lemma">
+            <div class="lemma-title">Lemma A (Gottesman-Knill for MBQC)</div>
+            <p class="small">Let <span class="katex-inline">\Pi = (G, \rho_G, \mathcal{M}, \mathcal{F}, \mathcal{O})</span> 
+            be an MBQC protocol satisfying:</p>
+            <ul class="tiny" style="margin: 0.5rem 0;">
+                <li>All measurement angles <span class="katex-inline">\theta_v \in \{0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}</span> (Pauli bases)</li>
+                <li>Feed-forward <span class="katex-inline">\mathcal{F}</span> is <span class="katex-inline">\mathbb{Z}_2</span>-linear</li>
+            </ul>
+            <p class="small">Then <span class="katex-inline">\Pi</span> can be classically simulated in time 
+            <span class="katex-inline">O(n^3)</span> via stabilizer tableau methods, or 
+            <span class="katex-inline">O(n \log n)</span> via CHP algorithm.</p>
+        </div>
+        
+        <div class="proof">
+            <div class="proof-title">Proof Sketch.</div>
+            <p>Under Pauli measurements, the cluster state remains in the stabilizer formalism. 
+            Each measurement updates the stabilizer tableau in polynomial time. The 
+            <span class="katex-inline">\mathbb{Z}_2</span>-linear feed-forward corresponds to Pauli frame updates, 
+            which preserve the stabilizer structure.</p>
+            <p class="qed">□</p>
+        </div>
+        
+        <div class="remark">
+            <strong>Optical Interpretation:</strong> Clifford operations correspond to 
+            Mueller matrices acting on Stokes vectors—implementable via linear interferometry.
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 8: Lemma B - Bounded Treewidth -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Classicalization Conditions: Lemma B</h2>
+    <div class="content">
+        <div class="lemma">
+            <div class="lemma-title">Lemma B (Bounded Treewidth Simulation)</div>
+            <p class="small">Let <span class="katex-inline">\Pi</span> be an MBQC on graph <span class="katex-inline">G</span> 
+            with treewidth <span class="katex-inline">\text{tw}(G) = w</span>. Then:</p>
+            <ul class="tiny" style="margin: 0.5rem 0;">
+                <li>The tensor network contraction has complexity <span class="katex-inline">O(2^w \cdot \text{poly}(n))</span></li>
+                <li>If <span class="katex-inline">w \in O(\log n)</span>, simulation is polynomial-time</li>
+            </ul>
+            <p class="small">In particular, tree tensor networks (treewidth 1) admit 
+            <span class="katex-inline">O(\text{poly}(n))</span> classical simulation.</p>
+        </div>
+        
+        <div class="proof">
+            <div class="proof-title">Proof Sketch.</div>
+            <p>Construct tree decomposition of <span class="katex-inline">G</span>. Contract tensor network along 
+            tree edges. Each contraction involves at most <span class="katex-inline">2^w</span> amplitudes. 
+            Total contractions: <span class="katex-inline">O(n)</span>. Result follows by dynamic programming 
+            on tree structure (van den Nest, 2010).</p>
+            <p class="qed">□</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 9: Lemma C - Dynamical Lie Algebra -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Classicalization Conditions: Lemma C</h2>
+    <div class="content">
+        <div class="lemma">
+            <div class="lemma-title">Lemma C (Polynomial DLA Simulation, g-Sim) [7]</div>
+            <p class="small">Define the dynamical Lie algebra (DLA):</p>
+            <div class="math-display katex-display">\mathfrak{g}_{\text{dyn}} = \langle \{iH_k\}_k \cup \{iL_\ell\}_\ell \rangle_{\text{Lie}}</div>
+            <p class="small">generated by Hamiltonians <span class="katex-inline">H_k</span> and Lindblad operators 
+            <span class="katex-inline">L_\ell</span>. If <span class="katex-inline">\dim(\mathfrak{g}_{\text{dyn}}) \in O(\text{poly}(n))</span>, 
+            then the MBQC admits efficient classical simulation via g-sim (observable propagation).</p>
+        </div>
+        
+        <div class="proof">
+            <div class="proof-title">Proof Sketch.</div>
+            <p>Observables evolve in the representation space of <span class="katex-inline">\mathfrak{g}_{\text{dyn}}</span>. 
+            If this space is polynomial-dimensional, Heisenberg evolution of any observable can be tracked 
+            classically. The g-sim algorithm propagates expectation values without full state representation.</p>
+            <p class="qed">□</p>
+        </div>
+        
+        <div class="remark">
+            <strong>Connection to Poisson Geometry:</strong> <span class="katex-inline">\mathfrak{g}_{\text{dyn}}</span> 
+            determines the Poisson structure on the classical phase space. Polynomial dimension implies 
+            finite-dimensional symplectic reduction exists.
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 10: Main Theorem 1 - Sufficient Conditions -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Main Results: Theorem 1</h2>
+    <div class="content">
+        <div class="theorem">
+            <div class="theorem-title">Theorem 1 (Sufficient Conditions for Classical Emulation)</div>
+            <p class="small">An MBQC protocol <span class="katex-inline">\Pi</span> is efficiently classically simulable 
+            if <em>any</em> of the following conditions hold:</p>
+            <ul class="tiny" style="margin: 0.5rem 0 0.5rem 1.5rem;">
+                <li><strong>(A) Clifford Restriction:</strong> All measurements in Pauli bases with 
+                <span class="katex-inline">\mathbb{Z}_2</span>-linear feed-forward (Lemma A) [2]</li>
+                <li><strong>(B) Bounded Treewidth:</strong> <span class="katex-inline">\text{tw}(G) \in O(\log n)</span> (Lemma B)</li>
+                <li><strong>(C) Poly-dim DLA:</strong> <span class="katex-inline">\dim(\mathfrak{g}_{\text{dyn}}) \in O(\text{poly}(n))</span> (Lemma C) [7]</li>
+            </ul>
+            <p class="small" style="margin-top: 0.75rem;"><strong>Moreover:</strong> Under any of these conditions, 
+            the MBQC can be emulated by classical optical systems using Mueller matrix calculus on 
+            the Poincaré sphere.</p>
+        </div>
+        
+        <div class="proof">
+            <div class="proof-title">Proof.</div>
+            <p>Follows from Lemmas A, B, C respectively. The optical emulation follows from the fact that 
+            each condition implies the Lie-Poisson structure reduces to a commutative Poisson manifold 
+            admitting Mueller matrix representation.</p>
+            <p class="qed">□</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 11: Theorem 2 - Contextuality Barrier -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Main Results: Theorem 2 (No-Go)</h2>
+    <div class="content">
+        <div class="theorem">
+            <div class="theorem-title">Theorem 2 (Contextuality Barrier) [4]</div>
+            <p class="small">Let <span class="katex-inline">\Pi</span> be an MBQC computing Boolean function 
+            <span class="katex-inline">f: \{0,1\}^n \to \{0,1\}</span> with success probability 
+            <span class="katex-inline">p_s</span>. Assume:</p>
+            <ul class="tiny" style="margin: 0.3rem 0 0.3rem 1.5rem;">
+                <li><strong>(H1)</strong> Feed-forward <span class="katex-inline">\mathcal{F}</span> is 
+                <span class="katex-inline">\mathbb{Z}_2</span>-linear (mod-2 affine)</li>
+            </ul>
+            <p class="small" style="margin-top: 0.5rem;">If <span class="katex-inline">f</span> is 
+            <em>nonlinear</em> over <span class="katex-inline">\mathbb{Z}_2</span>, then:</p>
+            <div class="math-display katex-display">p_s \leq 1 - (1 - C_F(\rho_G)) \cdot \frac{d_H(f, \text{Lin})}{2^m}</div>
+            <p class="small">where <span class="katex-inline">C_F(\rho_G)</span> is the contextual fraction 
+            and <span class="katex-inline">d_H(f, \text{Lin})</span> is the Hamming distance 
+            from <span class="katex-inline">f</span> to nearest linear function.</p>
+        </div>
+        
+        <div class="corollary">
+            <div class="corollary-title">Corollary 2.1 (Necessity of Contextuality)</div>
+            <p class="small">If <span class="katex-inline">p_s \to 1</span> and <span class="katex-inline">f</span> 
+            is nonlinear with <span class="katex-inline">d_H(f, \text{Lin}) > 0</span>, then 
+            <span class="katex-inline">C_F(\rho_G) > 0</span>: the resource state must be contextual.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 12: Theorem 2 Proof Sketch -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Proof of Theorem 2</h2>
+    <div class="content">
+        <div class="proof" style="flex: 1;">
+            <div class="proof-title">Proof Sketch.</div>
+            <p style="margin-bottom: 0.5rem;"><strong>Step 1 (HV Structure):</strong> In a noncontextual model, 
+            measurement outcomes are <span class="katex-inline">m_i = v_i(\lambda)</span> for hidden variable 
+            <span class="katex-inline">\lambda</span>.</p>
+            
+            <p style="margin-bottom: 0.5rem;"><strong>Step 2 (Linear Control):</strong> 
+            <span class="katex-inline">\mathbb{Z}_2</span>-linear feed-forward means 
+            <span class="katex-inline">s_t = A \cdot m_{&lt;t} + b \cdot x</span> (mod 2). 
+            The control is deterministic given <span class="katex-inline">\lambda</span> and input 
+            <span class="katex-inline">x</span>.</p>
+            
+            <p style="margin-bottom: 0.5rem;"><strong>Step 3 (Function Class):</strong> Under NC+linear control, 
+            the achievable output functions form an affine subspace of 
+            <span class="katex-inline">\mathbb{Z}_2^{2^n}</span>. This subspace has dimension at most 
+            <span class="katex-inline">m</span> (number of measurements).</p>
+            
+            <p style="margin-bottom: 0.5rem;"><strong>Step 4 (Distance Bound):</strong> Any nonlinear 
+            <span class="katex-inline">f</span> has <span class="katex-inline">d_H(f, \text{Lin}) > 0</span>. 
+            The probability of correctly computing <span class="katex-inline">f</span> on inputs where it 
+            differs from all linear functions is bounded by the contextual fraction.</p>
+            
+            <p style="margin-bottom: 0.5rem;"><strong>Step 5 (Conclusion):</strong> Combining bounds yields the 
+            stated inequality. As <span class="katex-inline">p_s \to 1</span>, we require 
+            <span class="katex-inline">C_F(\rho_G) > 0</span> for nonlinear <span class="katex-inline">f</span>.</p>
+            <p class="qed">□</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 13: Theorem 3 - Structural Partition -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Main Results: Theorem 3</h2>
+    <div class="content">
+        <div class="theorem">
+            <div class="theorem-title">Theorem 3 (Structural Partition)</div>
+            <p class="small">For any MBQC instance <span class="katex-inline">\Pi</span>, the set of primitives 
+            <span class="katex-inline">\{P_1, \ldots, P_5\}</span> admits a canonical partition:</p>
+            <div class="math-display katex-display">\{P_1, \ldots, P_5\} = S_{\text{class}} \sqcup S_{\text{quant}}</div>
+            <p class="small">where:</p>
+            <ul class="tiny" style="margin: 0.3rem 0 0.3rem 1.5rem;">
+                <li><span class="katex-inline">S_{\text{class}}</span>: Primitives satisfying conditions of Theorem 1 
+                (classically exchangeable)</li>
+                <li><span class="katex-inline">S_{\text{quant}}</span>: Primitives violating all conditions of Theorem 1 
+                (quantum-essential)</li>
+            </ul>
+            <p class="small" style="margin-top: 0.5rem;"><strong>Furthermore:</strong> If <span class="katex-inline">\Pi</span> 
+            computes a nonlinear Boolean function with <span class="katex-inline">p_s > 1 - \epsilon</span>, then 
+            <span class="katex-inline">|S_{\text{quant}}| \geq 1</span> and at least one primitive exhibits contextuality.</p>
+        </div>
+        
+        <div class="remark">
+            <strong>Geometric Interpretation:</strong> <span class="katex-inline">S_{\text{class}}</span> corresponds 
+            to the integrable (Poisson-commutative) part of the Lie-Poisson structure; 
+            <span class="katex-inline">S_{\text{quant}}</span> corresponds to non-integrable symplectic leaves.
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 14: Theorem 4 - Universality Criterion -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Main Results: Theorem 4</h2>
+    <div class="content">
+        <div class="theorem">
+            <div class="theorem-title">Theorem 4 (Universality Criterion)</div>
+            <p class="small">An MBQC protocol <span class="katex-inline">\Pi</span> is computationally universal 
+            (can simulate any polynomial-time quantum computation) if and only if:</p>
+            <ul class="tiny" style="margin: 0.5rem 0 0.5rem 1.5rem;">
+                <li><strong>(U1)</strong> Resource state <span class="katex-inline">\rho_G</span> is contextual 
+                (<span class="katex-inline">C_F(\rho_G) > 0</span>)</li>
+                <li><strong>(U2)</strong> Measurement angles include non-Clifford rotations 
+                (e.g., <span class="katex-inline">\theta = \pi/8</span>)</li>
+                <li><strong>(U3)</strong> Feed-forward supports adaptive nonlinear control</li>
+            </ul>
+        </div>
+        
+        <div class="corollary">
+            <div class="corollary-title">Corollary 4.1</div>
+            <p class="small">Removing any single condition (U1), (U2), or (U3) reduces the computational 
+            power to <span class="katex-inline">\mathsf{BPP}</span> (efficiently classically simulable).</p>
+        </div>
+        
+        <div class="proof">
+            <div class="proof-title">Proof Sketch.</div>
+            <p>(<span class="katex-inline">\Rightarrow</span>) Universality implies ability to compute nonlinear 
+            functions with high probability, so Theorem 2 gives (U1). Standard gate synthesis requires (U2). 
+            Adaptive computation requires (U3). (<span class="katex-inline">\Leftarrow</span>) Raussendorf-Briegel 
+            (2001) + magic state injection.</p>
+            <p class="qed">□</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 15: Theorem 5 - Main Classification -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Main Results: Theorem 5 (Complete Classification)</h2>
+    <div class="content">
+        <div class="theorem">
+            <div class="theorem-title">Theorem 5 (Decomposition & Classicalization)</div>
+            <p class="small"><strong>Part I (Decomposition):</strong> Every MBQC <span class="katex-inline">\Pi</span> 
+            admits canonical decomposition into 5 primitives <span class="katex-inline">\{P_1, \ldots, P_5\}</span> 
+            with well-defined plug interfaces.</p>
+            
+            <p class="small" style="margin-top: 0.5rem;"><strong>Part II (Classification):</strong> Each primitive 
+            <span class="katex-inline">P_i</span> is either:</p>
+            <ul class="tiny" style="margin: 0.2rem 0 0.2rem 1.5rem;">
+                <li>(a) Classically exchangeable (satisfying Lemma A, B, or C), or</li>
+                <li>(b) Quantum-essential (violating all conditions; requires contextuality by Theorem 2)</li>
+            </ul>
+            
+            <p class="small" style="margin-top: 0.5rem;"><strong>Part III (Composition):</strong> Classically 
+            exchangeable primitives can be replaced sequentially while preserving MBQC output distribution 
+            via plug interface compatibility.</p>
+        </div>
+        
+        <div class="corollary">
+            <div class="corollary-title">Corollary 5.1 (Quantum Advantage Characterization)</div>
+            <p class="small">An MBQC computes a classically hard problem iff 
+            <span class="katex-inline">\exists P_i \in S_{\text{quant}}</span> that is contextual or nonlocal.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 16: Primitive Classification Table -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Primitive Classification Summary</h2>
+    <div class="content">
+        <table>
+            <tr>
+                <th>Primitive</th>
+                <th>Description</th>
+                <th>Clifford Case</th>
+                <th>Universal Case</th>
+            </tr>
+            <tr>
+                <td><span class="katex-inline">P_1</span> (Qubits)</td>
+                <td>Poincaré sphere encoding</td>
+                <td class="success">✓ Mueller matrices</td>
+                <td class="success">✓ Classical</td>
+            </tr>
+            <tr>
+                <td><span class="katex-inline">P_2</span> (Cluster)</td>
+                <td>Resource state <span class="katex-inline">\rho_G</span></td>
+                <td class="success">✓ Stabilizer state</td>
+                <td class="danger">✗ Contextual</td>
+            </tr>
+            <tr>
+                <td><span class="katex-inline">P_3</span> (Graph)</td>
+                <td>Gflow structure</td>
+                <td class="success">✓ Classical routing</td>
+                <td class="success">✓ Classical</td>
+            </tr>
+            <tr>
+                <td><span class="katex-inline">P_4</span> (Measurements)</td>
+                <td>Angle selection</td>
+                <td class="success">✓ Pauli bases</td>
+                <td class="danger">✗ Non-Clifford</td>
+            </tr>
+            <tr>
+                <td><span class="katex-inline">P_5</span> (Algorithm)</td>
+                <td>Feed-forward logic</td>
+                <td class="success">✓ <span class="katex-inline">\mathbb{Z}_2</span>-linear</td>
+                <td class="danger">✗ Nonlinear</td>
+            </tr>
+        </table>
+        
+        <div class="remark" style="margin-top: 1rem;">
+            <strong>Key Insight:</strong> Quantum advantage lives precisely in the red cells: contextual 
+            resource states, non-Clifford angles, and nonlinear adaptive control.
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 17: Connection to Error Correction -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Connection to Quantum Error Correction</h2>
+    <div class="content">
+        <div class="proposition">
+            <div class="proposition-title">Proposition 1 (Syndrome Geometry)</div>
+            <p class="small">The momentum map <span class="katex-inline">\mu: \mathcal{S}(\mathcal{H}) \to \mathfrak{g}^*</span> 
+            induces syndrome extraction for stabilizer codes:</p>
+            <div class="math-display katex-display">\mu(\rho)_\alpha = \text{Tr}(\rho \, S_\alpha) = \begin{cases} +1 & \text{if } \rho \in \text{code space for } S_\alpha \\ -1 & \text{if error detected} \end{cases}</div>
+        </div>
+        
+        <div class="proposition">
+            <div class="proposition-title">Proposition 2 (Error Correction as Symplectic Reduction)</div>
+            <p class="small">Stabilizer QEC corresponds to symplectic reduction by the stabilizer group action. 
+            The code space is a symplectic leaf of the reduced Poisson manifold 
+            <span class="katex-inline">\mu^{-1}(+1, \ldots, +1) / \mathcal{S}</span>.</p>
+        </div>
+        
+        <div class="remark">
+            <strong>Implication:</strong> The Lie-Poisson framework unifies MBQC classicalization with 
+            QEC: both are manifestations of reduction theory on the same geometric structure.
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 17.5: Experimental Validation -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Experimental Validation Results</h2>
+    <div class="content">
+        <p class="small" style="color: #94a3b8; margin-bottom: 0.75rem;">Simulated MBQC experiments validating tier classification (Python MBQC framework):</p>
+        <table>
+            <tr>
+                <th>Protocol</th>
+                <th>Ideal</th>
+                <th>Noisy</th>
+                <th>Direct</th>
+                <th>RMEM</th>
+                <th>Classification</th>
+            </tr>
+            <tr>
+                <td>Teleport <span class="katex-inline">\theta=0</span></td>
+                <td>0.993</td>
+                <td>0.986</td>
+                <td>0.916</td>
+                <td class="success"><strong>0.950</strong></td>
+                <td class="success">Tier 1 ✓</td>
+            </tr>
+            <tr>
+                <td>GHZ (static)</td>
+                <td>1.000</td>
+                <td>1.000</td>
+                <td>0.930</td>
+                <td class="success"><strong>0.965</strong></td>
+                <td class="success">Tier 1 ✓</td>
+            </tr>
+            <tr>
+                <td>Magic <span class="katex-inline">\theta=\pi/8</span></td>
+                <td>0.980</td>
+                <td>0.910</td>
+                <td>0.846</td>
+                <td class="warning">0.883</td>
+                <td class="danger">Quantum ✗</td>
+            </tr>
+        </table>
+        
+        <div class="remark" style="margin-top: 1rem;">
+            <strong>RMEM:</strong> Randomized Measurement Error Mitigation improves fidelity by 3-5% 
+            via Pauli frame randomization. Tier 1 protocols achieve <span class="katex-inline">\geq 95\%</span> fidelity; 
+            quantum-essential protocols show reduced RMEM benefit due to contextuality requirements.
+        </div>
+        
+        <p class="tiny muted" style="margin-top: 0.5rem;">
+            *Validation via Python MBQC benchmark framework with depolarizing noise (<span class="katex-inline">p=0.02</span>) 
+            and asymmetric readout error (<span class="katex-inline">p_{01}=0.05, p_{10}=0.02</span>).
+        </p>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 18: Complexity Summary -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Computational Complexity Summary</h2>
+    <div class="content">
+        <table>
+            <tr>
+                <th>MBQC Class</th>
+                <th>Quantum Time</th>
+                <th>Classical Time</th>
+                <th>Condition</th>
+            </tr>
+            <tr>
+                <td>Clifford-only</td>
+                <td><span class="katex-inline">O(n^3)</span></td>
+                <td><span class="katex-inline">O(n^3)</span> or <span class="katex-inline">O(n \log n)</span></td>
+                <td class="success">Lemma A ✓</td>
+            </tr>
+            <tr>
+                <td>Bounded treewidth</td>
+                <td><span class="katex-inline">O(2^n)</span></td>
+                <td><span class="katex-inline">O(2^w \cdot \text{poly})</span></td>
+                <td class="success">Lemma B ✓</td>
+            </tr>
+            <tr>
+                <td>Polynomial DLA</td>
+                <td><span class="katex-inline">O(2^n)</span></td>
+                <td><span class="katex-inline">O(\text{poly}(n))</span></td>
+                <td class="success">Lemma C ✓</td>
+            </tr>
+            <tr>
+                <td>Universal</td>
+                <td><span class="katex-inline">O(\text{poly}(n))</span></td>
+                <td><span class="katex-inline">O(2^n)</span> (believed)</td>
+                <td class="danger">Theorem 2 ✗</td>
+            </tr>
+        </table>
+        
+        <div class="remark" style="margin-top: 1rem;">
+            The transition from polynomial to exponential classical complexity corresponds precisely 
+            to the boundary where contextuality becomes necessary (Theorem 2).
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 19: Open Problems -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Open Problems & Future Directions</h2>
+    <div class="content">
+        <ul style="font-size: 0.9rem; line-height: 2;">
+            <li><strong>Problem 1:</strong> Extension to continuous-variable (CV) MBQC and CV cluster states—does the Lie-Poisson framework generalize to infinite-dimensional settings?</li>
+            
+            <li><strong>Problem 2:</strong> Tight complexity bounds—is polynomial DLA dimension both necessary <em>and</em> sufficient for classical efficiency?</li>
+            
+            <li><strong>Problem 3:</strong> Direct experimental verification—can contextuality be measured in situ during photonic MBQC execution?</li>
+            
+            <li><strong>Problem 4:</strong> Noise effects—how do decoherence and photon loss affect the tier classification and contextuality measures?</li>
+            
+            <li><strong>Problem 5:</strong> Optimal hybrid architectures—given fixed classical and quantum resources, what is the optimal partition strategy?</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 20: Conclusions -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Conclusions</h2>
+    <div class="content">
+        <ul style="font-size: 0.85rem; line-height: 1.9;">
+            <li><strong>Theorem 1:</strong> Three sufficient conditions for classical emulation: (A) Clifford [2], (B) bounded treewidth, (C) poly-dim DLA [7]</li>
+            
+            <li><strong>Theorem 2:</strong> Contextuality barrier—nonlinear computation with high success requires contextual resources [4]</li>
+            
+            <li><strong>Theorem 3:</strong> Canonical partition of MBQC primitives into classically-exchangeable vs quantum-essential</li>
+            
+            <li><strong>Theorem 4:</strong> Universality characterized by three necessary conditions (contextuality, non-Clifford, nonlinear control)</li>
+            
+            <li><strong>Theorem 5:</strong> Complete classification framework with composition rules for hybrid architectures</li>
+        </ul>
+        
+        <div style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%); border-radius: 4px;">
+            <p class="accent" style="font-size: 1rem;"><strong>Main Result</strong></p>
+            <p class="small" style="color: #cbd5e1; margin-top: 0.5rem;">Quantum advantage in photonic MBQC emerges <em>precisely</em> when the Lie-Poisson structure becomes non-integrable—characterized by contextuality, non-Clifford angles, and nonlinear adaptive control.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE: Empirical Evidence Summary -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Empirical Evidence: Classical vs Quantum</h2>
+    <div class="content">
+        <div style="display: flex; gap: 1rem;">
+            <div style="flex: 1;">
+                <div class="definition" style="padding: 0.5rem;">
+                    <span class="definition-title">GHZ Correlation Scaling</span>
+                    <p class="tiny">Classical correlation <span class="katex-inline">P_{\text{class}} = 1/2^{n-1} \to 0</span></p>
+                    <table style="width: 100%; font-size: 0.65rem; margin-top: 0.2rem;">
+                        <tr><th>n</th><th>Quantum</th><th>Classical</th><th>Gap</th></tr>
+                        <tr><td>2</td><td style="color: #4ade80;">1.00</td><td style="color: #f87171;">0.50</td><td>50%</td></tr>
+                        <tr><td>4</td><td style="color: #4ade80;">1.00</td><td style="color: #f87171;">0.125</td><td>88%</td></tr>
+                        <tr><td>8</td><td style="color: #4ade80;">1.00</td><td style="color: #f87171;">0.008</td><td>99%</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div style="flex: 1;">
+                <div class="lemma" style="padding: 0.5rem;">
+                    <span class="lemma-title">Algorithm Speedups</span>
+                    <ul class="tiny" style="margin: 0.2rem 0 0 0.8rem;">
+                        <li><strong>Deutsch-Jozsa:</strong> <span class="katex-inline">O(1)</span> vs <span class="katex-inline">O(2^n)</span> — exponential</li>
+                        <li><strong>Grover:</strong> <span class="katex-inline">O(\sqrt{N})</span> vs <span class="katex-inline">O(N)</span> — quadratic</li>
+                    </ul>
+                </div>
+                <div class="proposition" style="padding: 0.5rem; margin-top: 0.3rem;">
+                    <span class="proposition-title">Classical Limitations</span>
+                    <ul class="tiny" style="margin: 0.2rem 0 0 0.8rem;">
+                        <li>No entanglement (local Stokes vectors)</li>
+                        <li>No contextuality (Bell: <span class="katex-inline">S \leq 2</span>)</li>
+                        <li>Positive intensities only</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="theorem" style="margin-top: 0.5rem; padding: 0.5rem;">
+            <span class="theorem-title">Boundary Identification</span>
+            <p class="small">Classical emulation fails when: (1) non-Clifford angles <span class="katex-inline">\theta \neq k\pi/2</span>, (2) entangled resources, (3) adaptive feed-forward. These correspond precisely to violations of Lemmas A, B, C.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE: Hybrid Quantum-Classical Architecture -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Practical Application: Hybrid System Design</h2>
+    <div class="content">
+        <p class="small" style="color: #cbd5e1; margin-bottom: 0.75rem;"><strong>Strategy:</strong> Use Tier tests to partition workload optimally</p>
+        
+        <div class="definition">
+            <div class="definition-title">Hybrid Architecture Components</div>
+            <ul class="tiny" style="margin: 0.5rem 0;">
+                <li><strong>Classical optics layer:</strong> Execute Tier 1/Tier 2 components via linear interferometry + Mueller matrices (cost: ~10× faster)</li>
+                <li><strong>Quantum hardware layer:</strong> Execute only quantum-essential primitives (<span class="katex-inline">P_2</span> contextual state prep, <span class="katex-inline">P_4</span> magic angles)</li>
+                <li><strong>Gate overhead reduction:</strong> Classical side-processing reduces quantum gate count by ~60-80% for hybrid algorithms</li>
+                <li><strong>Error overhead:</strong> Tailor QEC only to quantum-essential primitives (reduce syndrome measurement cost)</li>
+            </ul>
+        </div>
+        
+        <div class="remark">
+            <strong>Example:</strong> Variational algorithm → split parameter optimization (classical) from state preparation (quantum). 
+            This reduces circuit depth and improves noise resilience.
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE: References -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide">
+    <h2>Key References</h2>
+    <div class="content">
+        <ul class="tiny" style="line-height: 1.8;">
+            <li>[1] Raussendorf, R. & Briegel, H. J. (2001). A one-way quantum computer. <em>PRL</em> 86, 5188.</li>
+            <li>[2] Gottesman, D. (1998). The Heisenberg representation of quantum computers. <em>arXiv:quant-ph/9807006</em>.</li>
+            <li>[3] Hoban, M. J., Campbell, E. T., Loukopoulos, K., Browne, D. E. (2011). Non-adaptive MBQC and multi-party Bell inequalities. <em>New J. Phys.</em> 13, 023014.</li>
+            <li>[4] Raussendorf, R. (2013). Contextuality in measurement-based quantum computation. <em>PRA</em> 88, 022322.</li>
+            <li>[5] Marsden, J. E. & Ratiu, T. S. (1999). <em>Introduction to Mechanics and Symmetry</em>. Springer. [Lie-Poisson geometry]</li>
+            <li>[6] Kirillov, A. A. (2004). <em>Lectures on the Orbit Method</em>. AMS Graduate Studies in Mathematics. [Coadjoint orbits]</li>
+            <li>[7] Goh, M. L., Larocca, M., Cincio, L., Cerezo, M., Sauvage, F. (2025). Lie-algebraic classical simulations for quantum computing. <em>PRR</em> 7, 033266.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE: Thank You -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="slide" style="justify-content: center; align-items: center; text-align: center; background: linear-gradient(180deg, #0f172a 0%, #020617 100%);">
+    <h1 style="font-size: 3rem; margin-bottom: 2rem;">Thank You</h1>
+    <p style="color: #cbd5e1; font-size: 1.25rem; margin-bottom: 1rem;">Questions?</p>
+    <div style="margin-top: 2rem; color: #94a3b8;">
+        <p>Lie-Poisson Geometric Criteria for</p>
+        <p>Classical Optical MBQC Emulation</p>
+    </div>
+    <p class="tiny muted" style="margin-top: 2rem;">46th Winter School Geometry and Physics</p>
+    <p class="tiny muted">Srní, Czech Republic · January 17-24, 2026</p>
+</section>
+
+<!-- KaTeX rendering script - loaded at end for proper DOM access -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Render display math in .katex-display elements
+    document.querySelectorAll('.katex-display').forEach(function(el) {
+        try {
+            katex.render(el.textContent, el, { displayMode: true, throwOnError: false });
+        } catch (e) { console.error('KaTeX error:', e); }
+    });
+    
+    // Render inline math in .katex-inline elements
+    document.querySelectorAll('.katex-inline').forEach(function(el) {
+        try {
+            katex.render(el.textContent, el, { displayMode: false, throwOnError: false });
+        } catch (e) { console.error('KaTeX error:', e); }
+    });
+});
+</script>
+
+</body>
+</html>
