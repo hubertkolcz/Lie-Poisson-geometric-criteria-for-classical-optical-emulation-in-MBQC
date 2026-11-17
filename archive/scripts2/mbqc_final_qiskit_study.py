@@ -10,7 +10,7 @@ This is the definitive study comparing:
 Goal: Identify precisely where classical light beam simulation fails
 to reproduce quantum MBQC computations.
 
-Author: MBQC Framework Extended Study
+Author: Hubert Kołcz (written with AI assistance)
 Date: January 2026
 """
 

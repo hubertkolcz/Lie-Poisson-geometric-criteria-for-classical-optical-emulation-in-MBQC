@@ -355,9 +355,9 @@ If you use this framework for research:
 ```bibtex
 @software{mbqc_benchmark_2026,
   title={MBQC Benchmark Framework: Quantum vs Classical Emulation},
-  author={Your Name},
+  author={Hubert Kołcz},
   year={2026},
-  url={https://your-repo/mbqc-benchmark}
+  url={https://github.com/hubertkolcz/Lie-Poisson-geometric-criteria-for-classical-optical-emulation-in-MBQC}
 }
 ```
 

@@ -16,7 +16,7 @@ The Lie-Poisson framework predicts:
 - Tier 2 (Poly-DLA): Polynomial overhead classical simulation
 - Quantum-Essential: Exponential gap, classical fails
 
-Author: MBQC Framework Extended Study
+Author: Hubert Kołcz (written with AI assistance)
 Date: January 2026
 """
 

@@ -8,7 +8,7 @@ using classical light beams (Mueller matrices, Stokes vectors).
 According to the Lie-Poisson framework and Gottesman-Knill theorem,
 algorithms using ONLY Clifford gates are efficiently classically simulable.
 
-Author: MBQC Framework Study
+Author: Hubert Kołcz (written with AI assistance)
 Date: January 2026
 """
 

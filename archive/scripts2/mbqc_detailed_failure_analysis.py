@@ -8,7 +8,7 @@ light beam simulation fails to reproduce quantum MBQC.
 Key finding: The failure is not in single-qubit rotations, but in
 MULTI-QUBIT CORRELATIONS arising from entanglement.
 
-Author: MBQC Framework Extended Study
+Author: Hubert Kołcz (written with AI assistance)
 Date: January 2026
 """
 
