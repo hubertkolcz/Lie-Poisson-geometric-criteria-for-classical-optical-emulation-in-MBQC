@@ -22,9 +22,14 @@ Republic, January 2026).
 - The study was prepared during and for the 46th Winter School Geometry and Physics (Srní, January
   2026), which shaped its methodology.
 - Conceptually, it builds on [dynamic-quantumvengers](https://github.com/hubertkolcz/dynamic-quantumvengers),
-  a QRISE 2024 team project by Hubert Kołcz, Umi Yamaguchi and Ayeman Fatima. That project covers
-  quantum teleportation, GHZ circuits, randomized benchmarking and error correction in Qiskit. No code
-  from it is reused here.
+  a QRISE 2024 team project by Hubert Kołcz, Umi Yamaguchi and Ayeman Fatima that won first place in
+  the IBM Dynamic Circuit Challenge. That project covers quantum teleportation, GHZ circuits,
+  randomized benchmarking and error correction in Qiskit. No code from it is reused here.
+- The Lie-algebraic approach and the criteria for classical optical emulation were first presented in
+  the poster
+  [Lie Algebraic Structures in Quantum Error Correction for Measurement-Based Quantum Computing](https://repo.pw.edu.pl/info/report/WUT7015b3f80222482a88730392529b78d2/)
+  by Hubert Kołcz, Ayeman Fatima and Umi Yamaguchi, at the conference Differential Geometry and its
+  Applications (DGA 2025, Brno).
 - The code was written with substantial help from an AI coding assistant (Claude). Hubert Kołcz
   designed the study, directed the implementation, and reviewed and validated the results.
 
