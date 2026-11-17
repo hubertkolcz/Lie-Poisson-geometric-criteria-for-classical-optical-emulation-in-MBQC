@@ -1,0 +1,3 @@
+[submodule "related/dynamic-quantumvengers"]
+	path = related/dynamic-quantumvengers
+	url = https://github.com/hubertkolcz/dynamic-quantumvengers.git
